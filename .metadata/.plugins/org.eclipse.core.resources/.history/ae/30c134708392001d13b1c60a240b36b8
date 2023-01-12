@@ -1,0 +1,16 @@
+package com.example.demo.repo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.demo.model.Student;
+
+public class SearchRepoImpl implements SearchRepo {
+
+	@Override
+	public List<Student> findByText(String text) {
+		List<Student> stsearch = new ArrayList<Student>();
+		return stsearch;
+	}
+
+}
