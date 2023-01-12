@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "student")
 public class Student {
-	//need to check auto generated id
 	
 	@Id
 	private long id;
