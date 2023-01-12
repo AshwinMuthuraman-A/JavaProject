@@ -41,6 +41,7 @@ public class SearchRepoImpl implements SearchRepo {
 		Query q = new Query();
 		q.addCriteria(Criteria.where("name").is(text));
 		Student s = mt.findAndRemove(q, Student.class);
+		System.out.println(s.getId().toString());
 		return s;
 	}
 

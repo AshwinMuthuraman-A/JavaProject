@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,26 +9,25 @@ public class Student {
 	//need to check auto generated id
 	
 	@Id
-	private long id;
+	private ObjectId id;
 	private String name;
 	private int age;
 	private double marks;
 	public Student() {
 		super();
 	}
-	public Student(long id, String name, int age, double marks) {
+	public Student(String name, int age, double marks) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.marks = marks;
 	}
-	public long getId() {
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(long id) {
+	/*public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	public String getName() {
 		return name;
 	}
