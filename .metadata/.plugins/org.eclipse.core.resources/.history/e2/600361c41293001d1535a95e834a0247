@@ -1,0 +1,18 @@
+package com.example.demo.repo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.gridfs.GridFsOperations;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BinaryDataService {
+	
+	@Autowired
+	private GridFsTemplate gfsTemplate;
+	
+	@Autowired
+	private GridFsOperations gfsOperations;
+	
+	
+}
