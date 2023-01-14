@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.BinaryData;
-import com.example.demo.repo.BinaryDataService;
+import com.example.demo.services.BinaryDataServiceImpl;
 
 @RestController
 @RequestMapping("/file")
 public class BinaryDataController {
 	
 	@Autowired
-	private BinaryDataService bds;
+	private BinaryDataServiceImpl bds;
 	
 	@PostMapping("/upload")
 	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {

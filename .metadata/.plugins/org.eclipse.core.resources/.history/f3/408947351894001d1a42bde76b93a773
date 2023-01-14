@@ -1,0 +1,10 @@
+package com.example.demo.services;
+
+import com.example.demo.model.Student;
+
+public interface StudentService {
+	
+	public void createStudent(Student s);
+	String update(String text, Student s);
+	Student remove(String text);
+}

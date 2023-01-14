@@ -1,0 +1,10 @@
+package com.example.demo.repo;
+
+import java.util.List;
+
+import com.example.demo.model.Student;
+
+public interface StudentService {
+	String update(String text, Student s);
+	Student remove(String text);
+}
