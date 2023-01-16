@@ -1,0 +1,16 @@
+@font-face {
+font-family: "PrimaryFont";
+src: local("Poppins"),
+ url("./Poppins-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "SecondaryFont";
+  src: url("./PlayfairDisplay-Italic-VariableFont_wght.ttf");
+}
+*,*::after,*::before{
+  box-sizing: border-box;
+}
+body{
+  padding:0px;
+  margin:0px;
+}

@@ -1,0 +1,17 @@
+.content{
+    margin:20px;
+}
+.heading{
+    font-size:3rem;
+    font-family: "SecondaryFont";
+    font-weight: 3rem;
+}
+.text{
+    font-family: "PrimaryFont";
+    font-size:1.5rem;
+    font-weight: 1rem;
+}
+.cardsContainer{
+    display: flex;
+    align-items: row;
+}
