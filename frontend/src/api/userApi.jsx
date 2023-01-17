@@ -1,7 +1,9 @@
 import axios from "axios";
+const loginUrl = "http://localhost:6039/user/login"
+const signupUrl = "http://localhost:6039/user/signup"
 export const userLoginApi = async(userData) => {
     try{
-    const response = await(axios.post("http://localhost:1234/user/login" , userData));
+    const response = await(axios.post(loginUrl , userData));
     return response;
     }
     catch(err) {
@@ -11,7 +13,7 @@ export const userLoginApi = async(userData) => {
 }
 export const userSignupApi = async(userData) => {
     try{
-    const response = await(axios.post("http://localhost:1234/user/login" , userData));
+    const response = await(axios.post(signupUrl, userData));
     return response;
     }
     catch(err) {

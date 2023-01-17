@@ -1,6 +1,7 @@
 import MainCarousel from "../components/MainCarousel";
 import styles from "../styles/Home.module.css";
 import MultiCarousel from "../components/MultiCarousel";
+import LessonVideo from "../components/LessonVideo";
 const Home = () => {
   return (
     <>
@@ -23,6 +24,7 @@ const Home = () => {
           <button>Become a instructor</button>
         </div>
       </div>
+      <LessonVideo/>
     </>
   );
 };

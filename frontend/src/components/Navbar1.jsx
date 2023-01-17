@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,12 +12,12 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import InputAdornment from '@mui/material/InputAdornment';
 import { TextField, Autocomplete, Button } from "@mui/material";
 import {Link} from "react-router-dom"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const SearchField = styled(TextField)({
   "& label.Mui-focused": {
-    color: "var(--textSecondary)",
   },
   "& .MuiInput-underline:after": {
     borderBottomColor: "var(--textSecondary)",
@@ -25,7 +26,6 @@ const SearchField = styled(TextField)({
     "& fieldset": {
       borderColor: "var(--textPrimary)",
       borderRadius: "2rem",
-      backgroundColor: "white",
     },
     "&:hover fieldset": {
       borderColor: "var(--textSecondary)",
@@ -61,10 +61,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const [searchValue , setSearchValue] = useState(null);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -150,6 +149,34 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      <MenuItem>
+      <Link to="/user/login">
+       <Button
+              variant="outlined"
+              sx={{
+                color: "var(--textSecondary)",
+                marginInline: "10px",
+                borderColor: "var(--textSecondary)",
+              }}
+            >
+              Login
+            </Button>
+            </Link>
+            </MenuItem>
+            <MenuItem>
+            <Link to="user/signup">
+            <Button
+              variant="outlined"
+              sx={{
+                color: "var(--textSecondary)",
+                marginInline: "10px",
+                borderColor: "var(--textSecondary)",
+              }}
+            >
+              Signup
+            </Button>
+            </Link>
+      </MenuItem>
     </Menu>
   );
   //must get these values from the db
@@ -211,11 +238,11 @@ export default function PrimarySearchAppBar() {
     { title: "Rear Window", year: 1954 },
     { title: "The Pianist", year: 2002 },
   ];
-
   const defaultProps = {
     options: top100Films,
     getOptionLabel: (option) => option.title,
   };
+  console.log(searchValue);
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
@@ -234,14 +261,19 @@ export default function PrimarySearchAppBar() {
           <Autocomplete
             sx={{ width: "350px", marginLeft: "100px" }}
             {...defaultProps}
-            freeSolo
+            // freeSolo
+            disablePortal
             renderInput={(params) => (
               <>
-                <SearchField {...params} label="Search courses..." />
+                <SearchField 
+                {...params} label="Search courses..."
+                />
               </>
             )}
+            //  value={searchValue}
+            onChange = { (event,newValue) =>{console.log(newValue.title);setSearchValue(newValue);}}
+            // onSelect={e => {console.log(e)}}
           >
-            {" "}
           </Autocomplete>
           <Box sx={{ flexGrow: 1 }} />
           <Box
