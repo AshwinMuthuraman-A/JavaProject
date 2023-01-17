@@ -57,7 +57,7 @@
     <fullyQualifiedTypeName name="com.example.demo.model.User"/>
     <fullyQualifiedTypeName name="com.example.demo.Exceptions.UserCollectionException"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.example.demo.model.LoginDetails"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 </qualifiedTypeNameHistroy>
