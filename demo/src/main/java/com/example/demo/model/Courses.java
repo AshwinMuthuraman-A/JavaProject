@@ -14,14 +14,24 @@ public class Courses {
 	
 	private String courseName;
 	private String instructorName;
+	private String imageId;
 	private List<ObjectId> modulesList;
 	private int numberOfStudentsRegistered;
+	
+	public Courses() {
+		super();
+	}
+	
 	public Courses(String courseName, List<ObjectId> modulesList) {
 		super();
 		this.courseName = courseName;
 		this.modulesList = modulesList;
 		numberOfStudentsRegistered = 0;
 		instructorName = null;
+	}
+	
+	public ObjectId getId() {
+		return id;
 	}
 	public String getCourseName() {
 		return courseName;
@@ -35,13 +45,16 @@ public class Courses {
 	public void setInstructorName(String instructorName) {
 		this.instructorName = instructorName;
 	}
-	public ObjectId getId() {
-		return id;
+	public String getImageId() {
+		return imageId;
 	}
-	public List<ObjectId> getmodulesList() {
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
+	public List<ObjectId> getModulesList() {
 		return modulesList;
 	}
-	public void setmodulesList(List<ObjectId> modulesList) {
+	public void setModulesList(List<ObjectId> modulesList) {
 		this.modulesList = modulesList;
 	}
 	public int getNumberOfStudentsRegistered() {
