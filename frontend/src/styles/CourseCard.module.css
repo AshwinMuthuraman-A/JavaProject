@@ -9,18 +9,18 @@
 }
 
 .content {
-  /* position: absolute; */
-  width: 300px;
+  width:300px;
   height:500px;/*without this everything breaks*/
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   transition: transform 3s;
   transform-style: preserve-3d;
-  margin:10px;
-  margin-bottom: 40px;
+  /* margin:10px; */
   font-family: "PrimaryFont";
+  border:1px solid black;
 }
 .heading{
-	font-family:"SecondaryFont";
+	/* font-family:"SecondaryFont"; */
+  font-weight: bolder;
 }
 
 .card:hover .content {
@@ -33,16 +33,17 @@
   position: absolute;
   height: 100%;
   width: 100%;
+  width:fit-content;
   background: white;
   border-radius: 5px;
   backface-visibility: hidden;
-  padding:1rem;
 }
 
 .back {
   background: white;
   border-radius: 5px;
   transform: rotateY( 180deg );
+  padding:1rem;
 }
 .viewBtn{
     font-family: "PrimaryFont";
@@ -79,4 +80,7 @@
   }
   .viewBtn:hover::after{
     width: 100%;;
+  }
+  .courseDetails{
+	padding:1rem;
   }

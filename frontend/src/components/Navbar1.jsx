@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { TextField, Autocomplete, Button } from "@mui/material";
+import {Link} from "react-router-dom"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const SearchField = styled(TextField)({
   "& label.Mui-focused": {
@@ -219,6 +220,7 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
         <Toolbar>
+          <Link to="/" style={{textDecoration:'none'}}>
           <Typography
             variant="h4"
             noWrap
@@ -228,6 +230,7 @@ export default function PrimarySearchAppBar() {
           >
             <span style={{ color: "var(--textSecondary)" }}>U</span>Learn
           </Typography>
+          </Link>
           <Autocomplete
             sx={{ width: "350px", marginLeft: "100px" }}
             {...defaultProps}
@@ -251,6 +254,7 @@ export default function PrimarySearchAppBar() {
               }}
               titleAccess="Your purchases"
             />
+            <Link to="user/login">
             <Button
               variant="outlined"
               sx={{
@@ -261,6 +265,8 @@ export default function PrimarySearchAppBar() {
             >
               Login
             </Button>
+            </Link>
+            <Link to="user/signup">
             <Button
               variant="outlined"
               sx={{
@@ -271,6 +277,7 @@ export default function PrimarySearchAppBar() {
             >
               Signup
             </Button>
+            </Link>
             <IconButton
               size="large"
               edge="end"

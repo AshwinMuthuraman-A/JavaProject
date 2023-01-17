@@ -5,7 +5,7 @@ const CourseCard = () => {
       <div class="card" className={styles.card}>
   <div class="content" className={styles.content}>
     <div class="front" className={styles.front}>
-		<div style={{backgroundImage:'url(/slide2.png)' , height:'200px' , width:'100%'}}>
+		<div style={{backgroundImage:'url(/slide2.png)' , height:'300px' , width:'100%'}}>
 		</div>
 		<div className={styles.courseDetails}>
 			<h2 className={styles.heading}>Learn Java for life</h2>

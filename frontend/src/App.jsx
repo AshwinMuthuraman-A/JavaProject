@@ -5,12 +5,16 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import GlobalStyle from './globalStyles';
 import './App.css'
+import PrimarySearchAppBar from './components/Navbar1';
+import Footer from './components/Footer';
 function App() {
   return (
     <>
     <GlobalStyle/>
     <Router>
+      <PrimarySearchAppBar/>
       <AllRoutes/>
+      <Footer/>
     </Router>
     </>
   );
