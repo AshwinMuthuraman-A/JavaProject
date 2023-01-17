@@ -29,8 +29,8 @@ const Login = () => {
 const handleLogin = async(e) => {
   e.preventDefault();
   const userData = {
-    userEmail:email,
-    userPassword:passwd
+    loginEmail:email,
+    loginPassword:passwd
   }
   console.log(userData);
   const response = await userLoginApi(userData);

@@ -1,0 +1,13 @@
+package com.example.demo.repo;
+
+import java.util.Optional;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.example.demo.model.Student;
+
+public interface UserRepo  extends MongoRepository<Student, ObjectId> {
+	Optional<Student> findByEmail(String email);
+}
+
