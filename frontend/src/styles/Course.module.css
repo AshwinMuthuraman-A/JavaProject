@@ -1,0 +1,67 @@
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+}
+.header{
+    background-color: var(--textPrimary);
+    color:white;
+    font-family:"PrimaryFont";
+    padding:2.5rem;
+}
+.header h2 {
+    font-size:3rem;
+    margin-block:10px;
+}
+.header p {
+    margin-block:5px;
+}
+.details {
+    display: flex;
+    flex-direction: row;
+}
+.details > * {
+    margin-left:10px;
+}
+.filler{
+    height:100px;
+    background-color: var(--textPrimary);
+}
+ .courseCard{ 
+    border:2px solid var(--textSecondary);
+    padding:10px;
+    position: sticky;
+    top:0;
+    background-color: white;
+} 
+.courseCard img {
+    width: 100%;
+}
+.listContainer {
+    padding:2rem;
+    font-family: "PrimaryFont";
+    font-size:1.2rem;
+    border:1px solid black;
+    margin-top:2rem;
+    margin-left:1rem;
+}
+.leftCol{
+    flex:1 1 60%;
+}
+.rightCol {
+    flex:1 1 40%;
+    padding:0px;
+}
+.listContainer ul {
+    list-style-type:none;
+    margin:0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 40vh;
+}
+.listContainer li {
+    display: inline-block;
+    margin-block:10px;
+    margin-right: 10px;;
+}
