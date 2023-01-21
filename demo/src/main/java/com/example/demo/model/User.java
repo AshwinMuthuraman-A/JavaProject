@@ -24,6 +24,9 @@ public class User {
 		@NotNull(message= "User Password cannot be null")
 		private String userPassword;
 		
+		@NotNull(message="User Type cannot be null")
+		private String userType;
+		
 		private List<ObjectId> courseList;		
 		
 		public User() {

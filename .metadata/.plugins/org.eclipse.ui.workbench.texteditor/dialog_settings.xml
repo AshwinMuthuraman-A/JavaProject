@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="student"/>
+		<item key="selection" value="setId"/>
 		<list key="findhistory">
+			<item value="setId"/>
 			<item value="Student"/>
 			<item value="userrepos"/>
 			<item value="lessonsList"/>
