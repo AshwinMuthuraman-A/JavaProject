@@ -1,8 +1,0 @@
-package com.example.demo.repo;
-
-import com.example.demo.model.Student;
-
-public interface StudentService {
-	String update(String text, Student s);
-	Student remove(String text);
-}

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Exceptions.ModulesCollectionException;
 import com.example.demo.model.Modules;
 
 import jakarta.validation.ConstraintViolationException;
@@ -11,4 +12,5 @@ import jakarta.validation.ConstraintViolationException;
 public interface ModulesService {
 	public Modules createModule(String moduleValues, MultipartFile pdfFile, MultipartFile videoFile) 
 			throws ConstraintViolationException, IOException;
+	public Modules getModuleById(String moduleId) throws ModulesCollectionException;
 }

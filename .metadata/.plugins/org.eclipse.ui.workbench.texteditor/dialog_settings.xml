@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="setId"/>
+		<item key="selection" value="add"/>
 		<list key="findhistory">
+			<item value="add"/>
+			<item value="System.out.print"/>
 			<item value="setId"/>
 			<item value="Student"/>
 			<item value="userrepos"/>

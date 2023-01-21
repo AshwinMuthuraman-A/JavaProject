@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Exceptions.CoursesCollectionException;
 import com.example.demo.model.Courses;
 import com.example.demo.repo.CoursesRepo;
 import com.example.demo.services.CoursesService;
@@ -39,14 +40,24 @@ public class CoursesController {
 		return coursesRepos.findAll();
 	}
 	
+	@GetMapping(value="/get-course")
+	public ResponseEntity<?> getCourse(@RequestPart("courseId") String courseId) {
+		try {
+			Courses course = coursesService.getCourseById(courseId);
+			return new ResponseEntity<Courses>(course, HttpStatus.OK);
+		} catch(CoursesCollectionException cce) {
+			return new ResponseEntity<>(cce.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	@PostMapping(value = "/create", consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<?> createNewCourse(@RequestPart("instructorId") String instructorId,
 			                                 @RequestPart("course") String courseValues, 
 			                                 @RequestPart("imageFile") MultipartFile imageFile) {
 		try {
 			Courses course = coursesService.createCourse(instructorId, courseValues, imageFile);
-			userService.addCourseToUser(instructorId, course.getId().toString());
-			return new ResponseEntity<Courses> (course, HttpStatus.OK);
+			userService.addCourseToUser(instructorId, course.getCourseId());
+			return new ResponseEntity<String> (course.getCourseId(), HttpStatus.OK);
 		} catch(IOException ioe) {
 			return new ResponseEntity<>(ioe.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
 		}

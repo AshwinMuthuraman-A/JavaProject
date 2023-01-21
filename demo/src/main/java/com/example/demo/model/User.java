@@ -15,6 +15,8 @@ public class User {
 		@Id
 		private ObjectId id;
 		
+		private String userId;
+		
 		@NotNull(message = "User Name cannot be null")
 		private String userName;
 		
@@ -31,6 +33,8 @@ public class User {
 		
 		public User() {
 			super();
+			this.userId = null;
+			this.courseList = new ArrayList<String>();
 		}
 
 		public User(@NotNull(message = "User Name cannot be null") String userName,
@@ -42,11 +46,18 @@ public class User {
 			this.userEmail = userEmail;
 			this.userPassword = userPassword;
 			this.userType = userType;
-			this.courseList = new ArrayList<String>();
 		}
 
 		public ObjectId getId() {
 			return id;
+		}
+
+		public String getUserId() {
+			return userId;
+		}
+
+		public void setUserId(String userId) {
+			this.userId = userId;
 		}
 
 		public String getUserName() {
@@ -87,6 +98,10 @@ public class User {
 
 		public void setCourseList(List<String> courseList) {
 			this.courseList = courseList;
+		}
+
+		public void addCourse(String courseId) {
+			this.courseList.add(courseId);
 		}
 		
 }

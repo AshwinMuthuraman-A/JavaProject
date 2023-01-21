@@ -10,12 +10,14 @@ public class Modules {
 	@Id
 	private ObjectId id;
 	
+	private String moduleId;
 	private String name;
 	private String pdfContent;
 	private String videoContent;
 	
 	public Modules() {
 		super();
+		this.moduleId = null;
 	}
 	
 	public Modules(String name) {
@@ -27,6 +29,14 @@ public class Modules {
 		return id;
 	}
 	
+	public String getModuleId() {
+		return moduleId;
+	}
+
+	public void setModuleId(String moduleId) {
+		this.moduleId = moduleId;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.example.demo.Exceptions.CoursesCollectionException;
+import com.example.demo.Exceptions.ModulesCollectionException;
 import com.example.demo.Exceptions.UserCollectionException;
 import com.example.demo.model.LoginDetails;
 import com.example.demo.model.User;
+import com.example.demo.services.UserCourseDetailsService;
 import com.example.demo.services.UserService;
 
 import jakarta.validation.ConstraintViolationException;
@@ -27,6 +30,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserCourseDetailsService ucDetailsService;
 	
 	@PostMapping(value = "/signup")
 	public ResponseEntity<?> userSignup(@RequestBody User user) {
@@ -52,8 +58,27 @@ public class UserController {
 	
 	@PutMapping(value = "/register-course")
 	public ResponseEntity<?> registerCourse(@RequestPart("userId") String userId, @RequestPart("courseId") String courseId) {
-		userService.addCourseToUser(userId, courseId);
-		return new ResponseEntity<String>("Course Registered Successfully!", HttpStatus.OK);
+		try {
+			ucDetailsService.addUserCourseDetailsToUser(userId, courseId);
+			return new ResponseEntity<String>("Course Registered Successfully!", HttpStatus.OK);
+		} catch (CoursesCollectionException cce) {
+			return new ResponseEntity<>(cce.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PutMapping(value = "/update-module-markasread")
+	public ResponseEntity<?> updateModuleonMarkAsRead(@RequestPart("userId") String userId, 
+													  @RequestPart("courseId") String courseId,
+													  @RequestPart("moduleId") String moduleId) {
+		try {
+			ucDetailsService.updateOnMarkAsRead(userId, courseId, moduleId);
+			return new ResponseEntity<String>("Course Registered Successfully!", HttpStatus.OK);
+		} catch (CoursesCollectionException cce) {
+			return new ResponseEntity<>(cce.getMessage(), HttpStatus.NOT_FOUND);
+		}
+		catch (ModulesCollectionException mce) {
+			return new ResponseEntity<>(mce.getMessage(), HttpStatus.NOT_FOUND);
+		}
 	}
 	
 }

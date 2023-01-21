@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Exceptions.CoursesCollectionException;
+import com.example.demo.Exceptions.ModulesCollectionException;
 import com.example.demo.model.Modules;
-import com.example.demo.repo.ModulesRepo;
 import com.example.demo.services.CoursesService;
 import com.example.demo.services.ModulesService;
 
@@ -26,17 +28,35 @@ import com.example.demo.services.ModulesService;
 public class ModulesController {
 	
 	@Autowired
-	private ModulesRepo modulesRepos;
-	
-	@Autowired
 	private ModulesService modulesService;
 	
 	@Autowired
 	private CoursesService coursesService;
 	
-	@GetMapping(value = "/searchall")
-	public List<Modules> getAllCourses() {
-		return modulesRepos.findAll();
+	@GetMapping(value = "/getall")
+	public ResponseEntity<?> getAllModulesOfCourse(@RequestPart("courseId") String courseId) {
+		try {
+			List<String> modulesIdList = coursesService.getAllModules(courseId);
+			List<Modules> modulesList = new ArrayList<Modules>();
+			for(String moduleId : modulesIdList) {
+				modulesList.add(modulesService.getModuleById(moduleId));
+			}
+			return new ResponseEntity<List<Modules>>(modulesList, HttpStatus.OK);
+		} catch (CoursesCollectionException cce) {
+			return new ResponseEntity<>(cce.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (ModulesCollectionException mce) {
+			return new ResponseEntity<>(mce.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping(value="/get-module")
+	public ResponseEntity<?> getModule(@RequestPart("moduleId") String moduleId) {
+		try {
+			Modules module = modulesService.getModuleById(moduleId);
+			return new ResponseEntity<Modules>(module, HttpStatus.OK);
+		} catch(ModulesCollectionException mce) {
+			return new ResponseEntity<>(mce.getMessage(), HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@PostMapping(value = "/create", consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
@@ -46,8 +66,8 @@ public class ModulesController {
 			                                 @RequestPart("videoFile") MultipartFile videoFile) {
 		try {
 			Modules module = modulesService.createModule(moduleValues, pdfFile, videoFile);
-			coursesService.addModuletoCourse(courseId, module.getId().toString());
-			return new ResponseEntity<Modules> (module, HttpStatus.OK);
+			coursesService.addModuletoCourse(courseId, module.getModuleId());
+			return new ResponseEntity<String>(module.getModuleId(), HttpStatus.OK);
 		} catch(IOException ioe) {
 			return new ResponseEntity<>(ioe.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
 		}

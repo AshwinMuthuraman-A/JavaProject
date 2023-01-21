@@ -1,7 +1,5 @@
 package com.example.demo.services;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,9 @@ public class UserServiceImpl implements UserService {
 		}
 		else {
 			userRepos.insert(user);
-			return user.getId().toString();
+			user.setUserId(user.getId().toString());
+			userRepos.save(user);
+			return user.getUserId();
 		}
 	}
 	
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 			if(!(user.getUserPassword().equals(userPassword)))
 				throw new UserCollectionException(UserCollectionException.PasswordNotMatching());
 			else 
-				return user.getId().toString();
+				return user.getUserId();
 		}
 	}
 	
@@ -62,13 +62,8 @@ public class UserServiceImpl implements UserService {
 		Optional<User> userExist = userRepos.findById(userId);
 		if(userExist.isPresent()) {
 			User user = userExist.get();
-			List<String> courseList = user.getCourseList();
-			if(courseList==null)
-				courseList = new ArrayList<>();
-			courseList.add(courseId);
-			user.setCourseList(courseList);
+			user.addCourse(courseId);
 			userRepos.save(user);
 		}
-	}
-	
+	}	
 }

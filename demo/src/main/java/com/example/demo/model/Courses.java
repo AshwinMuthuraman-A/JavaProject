@@ -13,6 +13,7 @@ public class Courses {
 	@Id
 	private ObjectId id;
 	
+	private String courseId;
 	private String courseTitle;
 	private String courseDesc;
 	private String instructorName;
@@ -25,6 +26,10 @@ public class Courses {
 	
 	public Courses() {
 		super();
+		this.courseId = null;
+		this.instructorName = null;
+		this.modulesList = new ArrayList<String>();
+		this.numberOfStudentsRegistered = 0;
 	}
 
 	public Courses(String courseTitle, String courseDesc, String courseLang, List<String> importantKeyPoints, 
@@ -32,16 +37,21 @@ public class Courses {
 		super();
 		this.courseTitle = courseTitle;
 		this.courseDesc = courseDesc;
-		this.instructorName = null;
 		this.courseLang = courseLang;
 		this.importantKeyPoints = importantKeyPoints;
 		this.highlightKeyPoints = highlightKeyPoints;
-		this.modulesList = new ArrayList<String>();
-		this.numberOfStudentsRegistered = 0;
 	}
 
 	public ObjectId getId() {
 		return id;
+	}
+
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
 
 	public String getCourseTitle() {
@@ -118,5 +128,9 @@ public class Courses {
 
 	public void incrementNumOfStudentsRegistered() {
 		this.numberOfStudentsRegistered = this.numberOfStudentsRegistered+1;
+	}
+
+	public void includeModule(String moduleId) {
+		this.modulesList.add(moduleId);
 	}	
 }

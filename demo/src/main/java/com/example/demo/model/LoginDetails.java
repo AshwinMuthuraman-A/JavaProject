@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 
 public class LoginDetails {
+	
 	private String loginEmail;
 	private String loginPassword;
 	
