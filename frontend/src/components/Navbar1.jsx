@@ -118,26 +118,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem> */}
-      <MenuItem onClick={handleProfileMenuOpen}>
+     <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -242,7 +223,7 @@ export default function PrimarySearchAppBar() {
     options: top100Films,
     getOptionLabel: (option) => option.title,
   };
-  console.log(searchValue);
+  console.log(`The search value is ${searchValue}`);
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
@@ -261,8 +242,6 @@ export default function PrimarySearchAppBar() {
           <Autocomplete
             sx={{ width: "350px", marginLeft: "100px" }}
             {...defaultProps}
-            // freeSolo
-            disablePortal
             renderInput={(params) => (
               <>
                 <SearchField 
@@ -270,9 +249,7 @@ export default function PrimarySearchAppBar() {
                 />
               </>
             )}
-            //  value={searchValue}
-            onChange = { (event,newValue) =>{console.log(newValue.title);setSearchValue(newValue);}}
-            // onSelect={e => {console.log(e)}}
+            onChange = { (event,newValue) =>{console.log(newValue.title);setSearchValue(newValue.title);}}
           >
           </Autocomplete>
           <Box sx={{ flexGrow: 1 }} />

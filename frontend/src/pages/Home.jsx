@@ -2,6 +2,8 @@ import MainCarousel from "../components/MainCarousel";
 import styles from "../styles/Home.module.css";
 import MultiCarousel from "../components/MultiCarousel";
 import LessonVideo from "../components/LessonVideo";
+import Fileupload from "../components/Fileupload";
+import {Link} from "react-router-dom"
 const Home = () => {
   return (
     <>
@@ -21,10 +23,12 @@ const Home = () => {
             Instructors from around the world teach millions of students on
             Udemy. We provide the tools and skills to teach what you love.
           </p>
+          <Link to="/courseRegister">
           <button>Become a instructor</button>
+          </Link>
         </div>
       </div>
-      <LessonVideo/>
+      <Fileupload/>
     </>
   );
 };

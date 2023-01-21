@@ -1,0 +1,109 @@
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+}
+.header{
+    background-color: var(--textPrimary);
+    color:white;
+    font-family:"PrimaryFont";
+    padding:2.5rem;
+}
+.header h2 {
+    font-size:3rem;
+    margin-block:10px;
+}
+.header p {
+    margin-block:5px;
+}
+.details {
+    display: flex;
+    flex-direction: row;
+}
+.details > * {
+    /* margin-left:10px; */
+}
+.filler{
+    height:100px;
+    background-color: var(--textPrimary);
+}
+ .courseCard{ 
+    padding:10px;
+    position: sticky;
+    top:0;
+    background-color: rgb(202, 202, 202);
+    background-color: rgba(238, 125, 244, 0.164);
+    border:2px solid rgb(28, 96, 122);  
+    font-family: "PrimaryFont";
+} 
+.courseCard img {
+    width: 100%;
+}
+.listContainer {
+    padding:2rem;
+    font-family: "PrimaryFont";
+    font-size:1.2rem;
+    border:1px solid black;
+    margin-top:2rem;
+    margin-left:1rem;
+}
+.leftCol{
+    flex: 1 1 70%;
+}
+.rightCol {
+    flex: 1 1 30%;
+    padding:0px;
+}
+.listContainer ul {
+    list-style-type:none;
+    margin:0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 40vh;
+}
+.listContainer li {
+    display: inline-block;
+    margin-block:10px;
+    margin-right: 10px;;
+}
+/*styling the input tags*/
+input[id="courseTitle"] , input[id="courseDescription"] , input[id="instructorName"],input[id="courseLanguage"]{
+    border:2px solid white;
+    font-family: "PrimaryFont";
+    color:white;
+    background-color: var(--textPrimary);
+    font-size:1rem;
+}
+.header input:focus {
+    border:2px solid var(--textSecondary);
+}
+input[id="courseTitle"]{
+    font-size:2.5rem;
+}
+input[id="courseLanguage"] {
+    margin-left:20px;
+}
+input[id="courseTitle"]:focus{
+    border:2px solid var(--textSecondary);
+    color:white;
+}
+input[id="courseDescription"] {
+    border:2px solid white;
+    font-size:1rem;
+    display: block;
+    width:70%;
+    min-height: 20vh;;
+}
+.listContainer input {
+    border:2px solid var(--textSecondary);
+    display: inline-block;
+    width: 70%;
+    font-size:1.2rem;
+    height:40px;
+    color:var(--textPrimary);
+    border-radius:10px;
+}
+.courseCard input {
+    
+}
