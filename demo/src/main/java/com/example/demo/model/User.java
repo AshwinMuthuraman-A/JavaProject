@@ -27,7 +27,7 @@ public class User {
 		@NotNull(message="User Type cannot be null")
 		private String userType;
 		
-		private List<ObjectId> courseList;		
+		private List<String> courseList;		
 		
 		public User() {
 			super();
@@ -35,18 +35,20 @@ public class User {
 
 		public User(@NotNull(message = "User Name cannot be null") String userName,
 				@NotNull(message = "User Email cannot be null") String userEmail,
-				@NotNull(message = "User Password annot be null") String userPassword) {
+				@NotNull(message = "User Password cannot be null") String userPassword,
+				@NotNull(message = "User Type cannot be null") String userType) {
 			super();
 			this.userName = userName;
 			this.userEmail = userEmail;
 			this.userPassword = userPassword;
-			this.courseList = new ArrayList<>();
+			this.userType = userType;
+			this.courseList = new ArrayList<String>();
 		}
 
 		public ObjectId getId() {
 			return id;
 		}
-		
+
 		public String getUserName() {
 			return userName;
 		}
@@ -71,11 +73,20 @@ public class User {
 			this.userPassword = userPassword;
 		}
 
-		public List<ObjectId> getCourseList() {
+		public String getUserType() {
+			return userType;
+		}
+
+		public void setUserType(String userType) {
+			this.userType = userType;
+		}
+
+		public List<String> getCourseList() {
 			return courseList;
 		}
 
-		public void setCourseList(List<ObjectId> courseList) {
+		public void setCourseList(List<String> courseList) {
 			this.courseList = courseList;
-		}		
+		}
+		
 }

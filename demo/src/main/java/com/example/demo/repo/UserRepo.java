@@ -9,5 +9,6 @@ import com.example.demo.model.User;
 
 public interface UserRepo  extends MongoRepository<User, ObjectId> {
 	Optional<User> findByUserEmail(String userEmail);
+	Optional<User> findById(String userId);
 }
 

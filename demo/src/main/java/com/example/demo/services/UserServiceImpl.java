@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +45,30 @@ public class UserServiceImpl implements UserService {
 				return user.getId().toString();
 		}
 	}
+	
+	@Override
+	public String getNameFromId(String userId) {
+		Optional<User> userExist = userRepos.findById(userId);
+		if(userExist.isPresent()) {
+			User user = userExist.get();
+			return user.getUserName();
+		}
+		else
+			return null;
+	}
+	
+	@Override
+	public void addCourseToUser(String userId, String courseId) {
+		Optional<User> userExist = userRepos.findById(userId);
+		if(userExist.isPresent()) {
+			User user = userExist.get();
+			List<String> courseList = user.getCourseList();
+			if(courseList==null)
+				courseList = new ArrayList<>();
+			courseList.add(courseId);
+			user.setCourseList(courseList);
+			userRepos.save(user);
+		}
+	}
+	
 }

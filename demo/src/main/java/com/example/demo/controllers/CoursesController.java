@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.model.Courses;
 import com.example.demo.repo.CoursesRepo;
 import com.example.demo.services.CoursesService;
+import com.example.demo.services.UserService;
 
 @RestController
 @CrossOrigin("*")
@@ -30,15 +31,21 @@ public class CoursesController {
 	@Autowired
 	private CoursesService coursesService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping(value = "/searchall")
 	public List<Courses> getAllCourses() {
 		return coursesRepos.findAll();
 	}
 	
 	@PostMapping(value = "/create", consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
-	public ResponseEntity<?> createNewCourse(@RequestPart("course") String courseValues, @RequestPart("imageFile") MultipartFile imageFile) {
+	public ResponseEntity<?> createNewCourse(@RequestPart("instructorId") String instructorId,
+			                                 @RequestPart("course") String courseValues, 
+			                                 @RequestPart("imageFile") MultipartFile imageFile) {
 		try {
-			Courses course = coursesService.createCourse(courseValues, imageFile);
+			Courses course = coursesService.createCourse(instructorId, courseValues, imageFile);
+			userService.addCourseToUser(instructorId, course.getId().toString());
 			return new ResponseEntity<Courses> (course, HttpStatus.OK);
 		} catch(IOException ioe) {
 			return new ResponseEntity<>(ioe.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);

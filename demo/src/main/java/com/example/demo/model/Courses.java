@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -12,55 +13,110 @@ public class Courses {
 	@Id
 	private ObjectId id;
 	
-	private String courseName;
+	private String courseTitle;
+	private String courseDesc;
 	private String instructorName;
+	private String courseLang;
+	private List<String> importantKeyPoints;
+	private List<String> highlightKeyPoints;
 	private String imageId;
-	private List<ObjectId> modulesList;
+	private List<String> modulesList;
 	private int numberOfStudentsRegistered;
 	
 	public Courses() {
 		super();
 	}
-	
-	public Courses(String courseName, List<ObjectId> modulesList) {
+
+	public Courses(String courseTitle, String courseDesc, String courseLang, List<String> importantKeyPoints, 
+			       List<String> highlightKeyPoints, List<ObjectId> modulesList) {
 		super();
-		this.courseName = courseName;
-		this.modulesList = modulesList;
-		numberOfStudentsRegistered = 0;
-		instructorName = null;
+		this.courseTitle = courseTitle;
+		this.courseDesc = courseDesc;
+		this.instructorName = null;
+		this.courseLang = courseLang;
+		this.importantKeyPoints = importantKeyPoints;
+		this.highlightKeyPoints = highlightKeyPoints;
+		this.modulesList = new ArrayList<String>();
+		this.numberOfStudentsRegistered = 0;
 	}
-	
+
 	public ObjectId getId() {
 		return id;
 	}
-	public String getCourseName() {
-		return courseName;
+
+	public String getCourseTitle() {
+		return courseTitle;
 	}
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
+
+	public void setCourseTitle(String courseTitle) {
+		this.courseTitle = courseTitle;
 	}
+
+	public String getCourseDesc() {
+		return courseDesc;
+	}
+
+	public void setCourseDesc(String courseDesc) {
+		this.courseDesc = courseDesc;
+	}
+
 	public String getInstructorName() {
 		return instructorName;
 	}
+
 	public void setInstructorName(String instructorName) {
 		this.instructorName = instructorName;
 	}
+
+	public String getCourseLang() {
+		return courseLang;
+	}
+
+	public void setCourseLang(String courseLang) {
+		this.courseLang = courseLang;
+	}
+
+	public List<String> getImportantKeyPoints() {
+		return importantKeyPoints;
+	}
+
+	public void setImportantKeyPoints(List<String> importantKeyPoints) {
+		this.importantKeyPoints = importantKeyPoints;
+	}
+
+	public List<String> getHighlightKeyPoints() {
+		return highlightKeyPoints;
+	}
+
+	public void setHighlightKeyPoints(List<String> highlightKeyPoints) {
+		this.highlightKeyPoints = highlightKeyPoints;
+	}
+
 	public String getImageId() {
 		return imageId;
 	}
+
 	public void setImageId(String imageId) {
 		this.imageId = imageId;
 	}
-	public List<ObjectId> getModulesList() {
+
+	public List<String> getModulesList() {
 		return modulesList;
 	}
-	public void setModulesList(List<ObjectId> modulesList) {
+
+	public void setModulesList(List<String> modulesList) {
 		this.modulesList = modulesList;
 	}
+
 	public int getNumberOfStudentsRegistered() {
 		return numberOfStudentsRegistered;
 	}
+
 	public void setNumberOfStudentsRegistered(int numberOfStudentsRegistered) {
 		this.numberOfStudentsRegistered = numberOfStudentsRegistered;
 	}
+
+	public void incrementNumOfStudentsRegistered() {
+		this.numberOfStudentsRegistered = this.numberOfStudentsRegistered+1;
+	}	
 }
