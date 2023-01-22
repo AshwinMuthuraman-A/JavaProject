@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import java.util.List;
+
 import com.example.demo.Exceptions.UserCollectionException;
 import com.example.demo.model.User;
 
@@ -11,4 +13,5 @@ public interface UserService {
 	public User getUserById(String userId) throws UserCollectionException;
 	public String getNameFromId(String userId) throws UserCollectionException;
 	public void addCourseToUser(String userId, String courseId) throws UserCollectionException;
+	public List<String> getAllUcdetails(String userId) throws UserCollectionException;
 }

@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,4 +69,11 @@ public class UserServiceImpl implements UserService {
 		else
 			throw new UserCollectionException(UserCollectionException.EmailNotExists());
 	}
+
+	@Override
+	public List<String> getAllUcdetails(String userId) throws UserCollectionException {
+		User user = getUserById(userId);
+		return user.getCourseList();
+	}
+	
 }

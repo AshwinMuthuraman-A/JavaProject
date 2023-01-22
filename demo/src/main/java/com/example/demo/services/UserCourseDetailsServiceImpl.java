@@ -55,7 +55,7 @@ public class UserCourseDetailsServiceImpl implements UserCourseDetailsService{
 	}
 	
 	@Override
-	public UserCourseDetails getucDetailsById(String ucDetailsId) throws UserCourseDetailsCollectionException {
+	public UserCourseDetails getUcdetailsById(String ucDetailsId) throws UserCourseDetailsCollectionException {
 		Optional<UserCourseDetails> ucDetailsExist = ucDetailsRepos.findById(ucDetailsId);
 		if(ucDetailsExist.isPresent()) {
 			UserCourseDetails ucDetails = ucDetailsExist.get();
@@ -84,7 +84,7 @@ public class UserCourseDetailsServiceImpl implements UserCourseDetailsService{
 		for(String ucDetailsId : courseList) {
 			if(getCourseIdById(ucDetailsId).equals(courseId)) {
 				
-				UserCourseDetails ucDetails = getucDetailsById(ucDetailsId);
+				UserCourseDetails ucDetails = getUcdetailsById(ucDetailsId);
 				
 				Courses course = coursesService.getCourseById(courseId);
 				int index = course.getModulesList().indexOf(moduleId);
