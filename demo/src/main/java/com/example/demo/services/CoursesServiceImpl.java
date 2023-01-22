@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Exceptions.CoursesCollectionException;
+import com.example.demo.Exceptions.UserCollectionException;
 import com.example.demo.model.Courses;
 import com.example.demo.repo.CoursesRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +27,7 @@ public class CoursesServiceImpl implements CoursesService {
 	private UserService userService;
 	
 	@Override
-	public Courses createCourse(String instructorId, String courseValues, MultipartFile imageFile) throws IOException {
+	public Courses createCourse(String instructorId, String courseValues, MultipartFile imageFile) throws IOException, UserCollectionException {
 		Courses course = new Courses();
 		ObjectMapper objectMapper = new ObjectMapper();
 		course = objectMapper.readValue(courseValues, Courses.class);
@@ -39,34 +40,23 @@ public class CoursesServiceImpl implements CoursesService {
 	}
 
 	@Override
-	public void addModuletoCourse(String courseId, String moduleId) {
-		Optional<Courses> courseExist = coursesRepos.findById(courseId);
-		if(courseExist.isPresent()) {
-			Courses course = courseExist.get();
-			course.includeModule(moduleId);
-			coursesRepos.save(course);
-		}
+	public void addModuletoCourse(String courseId, String moduleId) throws CoursesCollectionException {
+		Courses course = getCourseById(courseId);
+		course.includeModule(moduleId);
+		coursesRepos.save(course);
 	}
 	
 	@Override
 	public List<String> getAllModules(String courseId) throws CoursesCollectionException {
-		Optional<Courses> courseExist = coursesRepos.findById(courseId);
-		if(courseExist.isPresent()) {
-			Courses course = courseExist.get();
-			return course.getModulesList();
-		}
-		else
-			throw new CoursesCollectionException(CoursesCollectionException.CoursesNotFound());
+		Courses course = getCourseById(courseId);
+		return course.getModulesList();
 	}
 
 	@Override
-	public void addCountToCourse(String courseId) {
-		Optional<Courses> courseExist = coursesRepos.findById(courseId);
-		if(courseExist.isPresent()) {
-			Courses course = courseExist.get();
-			course.incrementNumOfStudentsRegistered();
-			coursesRepos.save(course);
-		}		
+	public void addCountToCourse(String courseId) throws CoursesCollectionException {
+		Courses course = getCourseById(courseId);
+		course.incrementNumOfStudentsRegistered();
+		coursesRepos.save(course);		
 	}
 
 	@Override

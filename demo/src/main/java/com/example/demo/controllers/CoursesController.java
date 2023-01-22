@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Exceptions.CoursesCollectionException;
+import com.example.demo.Exceptions.UserCollectionException;
 import com.example.demo.model.Courses;
 import com.example.demo.repo.CoursesRepo;
 import com.example.demo.services.CoursesService;
@@ -58,6 +59,8 @@ public class CoursesController {
 			Courses course = coursesService.createCourse(instructorId, courseValues, imageFile);
 			userService.addCourseToUser(instructorId, course.getCourseId());
 			return new ResponseEntity<String> (course.getCourseId(), HttpStatus.OK);
+		} catch(UserCollectionException uce) {
+			return new ResponseEntity<>(uce.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
 		} catch(IOException ioe) {
 			return new ResponseEntity<>(ioe.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
 		}

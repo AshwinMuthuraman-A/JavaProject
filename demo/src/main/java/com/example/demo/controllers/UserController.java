@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.example.demo.Exceptions.CoursesCollectionException;
 import com.example.demo.Exceptions.ModulesCollectionException;
 import com.example.demo.Exceptions.UserCollectionException;
+import com.example.demo.Exceptions.UserCourseDetailsCollectionException;
 import com.example.demo.model.LoginDetails;
 import com.example.demo.model.User;
 import com.example.demo.services.UserCourseDetailsService;
@@ -37,8 +38,8 @@ public class UserController {
 	@PostMapping(value = "/signup")
 	public ResponseEntity<?> userSignup(@RequestBody User user) {
 		try {
-			String userId = userService.createUser(user);
-			return new ResponseEntity<String> (userId, HttpStatus.OK);
+			User createdUser = userService.createUser(user);
+			return new ResponseEntity<User> (createdUser, HttpStatus.OK);
 		} catch(ConstraintViolationException cve) {
 			return new ResponseEntity<>(cve.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
 		} catch (UserCollectionException uce) {
@@ -49,8 +50,8 @@ public class UserController {
 	@GetMapping(value = "/login")
 	public ResponseEntity<?> userLogin(@RequestBody LoginDetails loginDetails) {
 		try {
-			String userId = userService.loginUser(loginDetails.getLoginEmail(), loginDetails.getLoginPassword());
-			return new ResponseEntity<String> (userId, HttpStatus.OK);
+			User user = userService.loginUser(loginDetails.getLoginEmail(), loginDetails.getLoginPassword());
+			return new ResponseEntity<User> (user, HttpStatus.OK);
 		} catch (UserCollectionException uce) {
 			return new ResponseEntity<>(uce.getMessage(), HttpStatus.CONFLICT);
 		}
@@ -59,10 +60,12 @@ public class UserController {
 	@PutMapping(value = "/register-course")
 	public ResponseEntity<?> registerCourse(@RequestPart("userId") String userId, @RequestPart("courseId") String courseId) {
 		try {
-			ucDetailsService.addUserCourseDetailsToUser(userId, courseId);
+			ucDetailsService.registerUserToCourse(userId, courseId);
 			return new ResponseEntity<String>("Course Registered Successfully!", HttpStatus.OK);
 		} catch (CoursesCollectionException cce) {
 			return new ResponseEntity<>(cce.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (UserCollectionException uce) {
+			return new ResponseEntity<>(uce.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -72,12 +75,17 @@ public class UserController {
 													  @RequestPart("moduleId") String moduleId) {
 		try {
 			ucDetailsService.updateOnMarkAsRead(userId, courseId, moduleId);
-			return new ResponseEntity<String>("Course Registered Successfully!", HttpStatus.OK);
-		} catch (CoursesCollectionException cce) {
+			return new ResponseEntity<String>("Update Successful!", HttpStatus.OK);
+		} catch(UserCollectionException uce) {
+			return new ResponseEntity<>(uce.getMessage(), HttpStatus.NOT_FOUND);
+		}
+		catch (CoursesCollectionException cce) {
 			return new ResponseEntity<>(cce.getMessage(), HttpStatus.NOT_FOUND);
 		}
 		catch (ModulesCollectionException mce) {
 			return new ResponseEntity<>(mce.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (UserCourseDetailsCollectionException ucdce) {
+			return new ResponseEntity<>(ucdce.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 	

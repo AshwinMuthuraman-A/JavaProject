@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 	private UserRepo userRepos;
 	
 	@Override
-	public String createUser(User user) throws ConstraintViolationException, UserCollectionException {
+	public User createUser(User user) throws ConstraintViolationException, UserCollectionException {
 		Optional<User> userExist = userRepos.findByUserEmail(user.getUserEmail());
 		if(userExist.isPresent()) {
 			throw new UserCollectionException(UserCollectionException.EmailAlreadyExists());
@@ -27,12 +27,12 @@ public class UserServiceImpl implements UserService {
 			userRepos.insert(user);
 			user.setUserId(user.getId().toString());
 			userRepos.save(user);
-			return user.getUserId();
+			return user;
 		}
 	}
 	
 	@Override
-	public String loginUser(String userEmail, String userPassword) throws UserCollectionException {
+	public User loginUser(String userEmail, String userPassword) throws UserCollectionException {
 		Optional<User> userExist = userRepos.findByUserEmail(userEmail);
 		if(userExist.isEmpty()) {
 			throw new UserCollectionException(UserCollectionException.EmailNotExists());
@@ -42,28 +42,30 @@ public class UserServiceImpl implements UserService {
 			if(!(user.getUserPassword().equals(userPassword)))
 				throw new UserCollectionException(UserCollectionException.PasswordNotMatching());
 			else 
-				return user.getUserId();
+				return user;
 		}
 	}
 	
 	@Override
-	public String getNameFromId(String userId) {
+	public String getNameFromId(String userId) throws UserCollectionException {
+		User user = getUserById(userId);
+		return user.getUserName();
+	}
+	
+	@Override
+	public void addCourseToUser(String userId, String courseId) throws UserCollectionException {
+		User user = getUserById(userId);
+		user.addCourse(courseId);
+		userRepos.save(user);
+	}
+	
+	@Override
+	public User getUserById(String userId) throws UserCollectionException {
 		Optional<User> userExist = userRepos.findById(userId);
 		if(userExist.isPresent()) {
-			User user = userExist.get();
-			return user.getUserName();
+			return userExist.get();
 		}
 		else
-			return null;
+			throw new UserCollectionException(UserCollectionException.EmailNotExists());
 	}
-	
-	@Override
-	public void addCourseToUser(String userId, String courseId) {
-		Optional<User> userExist = userRepos.findById(userId);
-		if(userExist.isPresent()) {
-			User user = userExist.get();
-			user.addCourse(courseId);
-			userRepos.save(user);
-		}
-	}	
 }

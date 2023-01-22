@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Exceptions.CoursesCollectionException;
 import com.example.demo.Exceptions.ModulesCollectionException;
+import com.example.demo.Exceptions.UserCollectionException;
+import com.example.demo.Exceptions.UserCourseDetailsCollectionException;
 import com.example.demo.model.Courses;
 import com.example.demo.model.User;
 import com.example.demo.model.UserCourseDetails;
@@ -26,72 +28,71 @@ public class UserCourseDetailsServiceImpl implements UserCourseDetailsService{
 	@Autowired
 	private UserRepo userRepos;
 	
+	@Autowired UserService userService;
+	
 	@Autowired
 	private CoursesService coursesService;
 	
 	@Override
-	public void addUserCourseDetailsToUser(String userId, String courseId) throws CoursesCollectionException {
-		Optional<User> userExist = userRepos.findById(userId);
-		if(userExist.isPresent()) {
-			User user = userExist.get();
-			
-			Courses course = coursesService.getCourseById(courseId);
-			int n = course.getModulesList().size();
-			List<Boolean> isCompleted= new ArrayList<Boolean>(Arrays.asList(new Boolean[n]));
-			Collections.fill(isCompleted, Boolean.FALSE);
-			
-			UserCourseDetails ucDetails = new UserCourseDetails();
-			ucDetails.setCourseId(courseId);
-			ucDetails.setModulesCompleted(isCompleted);
-			ucDetails.setModulesCompleted(null);
-			ucDetailsRepos.insert(ucDetails);
-			String ucDetailsId = ucDetails.getId().toString();
-			ucDetails.setUserCourseDetailsId(ucDetailsId);
-			ucDetailsRepos.insert(ucDetails);
-			//doubt
-			user.addCourse(ucDetailsId);
-			userRepos.save(user);
-		}
+	public void registerUserToCourse(String userId, String courseId) throws CoursesCollectionException, UserCollectionException {
+		
+		User user = userService.getUserById(userId);
+		
+		coursesService.addCountToCourse(courseId);
+		Courses course = coursesService.getCourseById(courseId);
+		int n = course.getModulesList().size();
+		List<Boolean> isCompleted= new ArrayList<Boolean>(Arrays.asList(new Boolean[n]));
+		Collections.fill(isCompleted, Boolean.FALSE);
+		UserCourseDetails ucDetails = new UserCourseDetails();
+		ucDetails.setCourseId(courseId);
+		ucDetails.setModulesCompleted(isCompleted);
+		ucDetailsRepos.insert(ucDetails);
+		String ucDetailsId = ucDetails.getId().toString();
+		ucDetails.setUserCourseDetailsId(ucDetailsId);
+		ucDetailsRepos.save(ucDetails);
+		user.addCourse(ucDetailsId);
+		userRepos.save(user);
 	}
 	
 	@Override
-	public UserCourseDetails getucDetailsById(String ucDetailsId) {
+	public UserCourseDetails getucDetailsById(String ucDetailsId) throws UserCourseDetailsCollectionException {
 		Optional<UserCourseDetails> ucDetailsExist = ucDetailsRepos.findById(ucDetailsId);
 		if(ucDetailsExist.isPresent()) {
 			UserCourseDetails ucDetails = ucDetailsExist.get();
 			return ucDetails;
 		}
 		else
-			return null;
+			throw new UserCourseDetailsCollectionException(UserCourseDetailsCollectionException.UCDetailsNotFound());
 	}
 	
 	@Override
-	public String getCourseIdById(String ucDetailsId) {
+	public String getCourseIdById(String ucDetailsId) throws UserCourseDetailsCollectionException {
 		Optional<UserCourseDetails> ucDetailsExist = ucDetailsRepos.findById(ucDetailsId);
 		if(ucDetailsExist.isPresent()) {
 			UserCourseDetails ucDetails = ucDetailsExist.get();
 			return ucDetails.getCourseId();
 		}
 		else
-			return null;
+			throw new UserCourseDetailsCollectionException(UserCourseDetailsCollectionException.UCDetailsNotFound());
 	}
 	
 	@Override
-	public void updateOnMarkAsRead(String userId, String courseId, String moduleId) throws CoursesCollectionException, ModulesCollectionException {
-		//doubt
-		Optional<User> userExist = userRepos.findById(userId);
-		if(userExist.isPresent()) {
-			User user = userExist.get();
-			List<String> courseList = user.getCourseList();
-			for(String ucDetailsId : courseList) {
-				if(getCourseIdById(ucDetailsId).equals(courseId)) {
-					Courses course = coursesService.getCourseById(courseId);
-					int index = course.getModulesList().indexOf(moduleId);
-					UserCourseDetails ucDetails = getucDetailsById(ucDetailsId);
-					ucDetails.getModulesCompleted().set(index, true);
-					ucDetailsRepos.save(ucDetails);
-					break;
-				}
+	public void updateOnMarkAsRead(String userId, String courseId, String moduleId) 
+			throws CoursesCollectionException, ModulesCollectionException, UserCollectionException, UserCourseDetailsCollectionException {
+		User user = userService.getUserById(userId);
+		List<String> courseList = user.getCourseList();
+		for(String ucDetailsId : courseList) {
+			if(getCourseIdById(ucDetailsId).equals(courseId)) {
+				
+				UserCourseDetails ucDetails = getucDetailsById(ucDetailsId);
+				
+				Courses course = coursesService.getCourseById(courseId);
+				int index = course.getModulesList().indexOf(moduleId);
+				ucDetails.getModulesCompleted().set(index, true);
+				ucDetails.updateCourseCompletedPercentage();
+		
+				ucDetailsRepos.save(ucDetails);
+				break;
 			}
 		}
 	}
