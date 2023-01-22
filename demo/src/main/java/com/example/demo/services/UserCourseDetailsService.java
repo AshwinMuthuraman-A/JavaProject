@@ -2,17 +2,19 @@ package com.example.demo.services;
 
 import com.example.demo.Exceptions.CoursesCollectionException;
 import com.example.demo.Exceptions.ModulesCollectionException;
+import com.example.demo.Exceptions.UserCollectionException;
+import com.example.demo.Exceptions.UserCourseDetailsCollectionException;
 import com.example.demo.model.UserCourseDetails;
 
 public interface UserCourseDetailsService {
 
-	void addUserCourseDetailsToUser(String userId, String courseId) throws CoursesCollectionException;
+	void registerUserToCourse(String userId, String courseId) throws CoursesCollectionException, UserCollectionException;
 
 	void updateOnMarkAsRead(String userId, String courseId, String moduleId)
-			throws CoursesCollectionException, ModulesCollectionException;
+			throws CoursesCollectionException, ModulesCollectionException, UserCollectionException, UserCourseDetailsCollectionException;
 
-	String getCourseIdById(String ucDetailsId);
+	String getCourseIdById(String ucDetailsId) throws UserCourseDetailsCollectionException;
 
-	UserCourseDetails getucDetailsById(String ucDetailsId);
+	UserCourseDetails getucDetailsById(String ucDetailsId) throws UserCourseDetailsCollectionException;
 
 }

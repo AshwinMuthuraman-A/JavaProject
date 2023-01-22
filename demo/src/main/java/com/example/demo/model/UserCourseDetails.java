@@ -50,6 +50,20 @@ public class UserCourseDetails {
 	}
 	public void setModulesCompleted(List<Boolean> modulesCompleted) {
 		this.modulesCompleted = modulesCompleted;
+	}
+	public void updateCourseCompletedPercentage() {
+		double trueCount = 0.0;
+		for(Boolean b : this.modulesCompleted) {
+			if(b==true)
+				++trueCount;
+		}
+		double size = this.modulesCompleted.size();
+		double newPercentage;
+		if(size!=0)
+			newPercentage = trueCount/size;
+		else
+			newPercentage = 0.0;
+		this.setCourseCompletedPercentage(newPercentage);
 	}	
 	
 }

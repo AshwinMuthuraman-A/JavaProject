@@ -70,6 +70,8 @@ public class ModulesController {
 			return new ResponseEntity<String>(module.getModuleId(), HttpStatus.OK);
 		} catch(IOException ioe) {
 			return new ResponseEntity<>(ioe.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
+		} catch (CoursesCollectionException cce) {
+			return new ResponseEntity<>(cce.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
 		}
 	}
 }
