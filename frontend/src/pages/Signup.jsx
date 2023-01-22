@@ -27,17 +27,22 @@ const Signup = () => {
   const[name , setName] = useState(null);
   const [email , setEmail] = useState(null);
   const [passwd , setPasswd] = useState(null);
+  const [userType , setUserType] = useState(null);
 const handleSignup = async(e) => {
   e.preventDefault();
   const userData = {
     userName:name,
     userEmail:email,
-    userPassword:passwd
+    userPassword:passwd,
+    userType:userType
   }
   console.log(userData);
   const response = await userSignupApi(userData);
   if (response.status == 200) {
     console.log("Signed up successfully");
+    const userId = sessionStorage.setItem("userId" , response.data.userId);
+    const userType = sessionStorage.setItem("userType", response.data.userType);
+    const userName = sessionStorage.setItem("userName" , response.data.userName);
   }
   console.log(response);
 };
@@ -81,6 +86,12 @@ const handleSignup = async(e) => {
         autoComplete="off"
        required 
     />
+    </div>
+    <div className={styles.inputField}>
+      <input type="radio" name="type" id="type" value="Student" onChange ={(e) => setUserType("Student")}/>
+      <label htmlFor="Student">Student</label>
+      <input type="radio" name="type" id="type" value="Instructor" onChange={(e) => setUserType("Instructor")}/>
+      <label htmlFor="Instructor">Instructor</label>
     </div>
     <button className={styles.loginBtn} onClick = {e => handleSignup(e)}>Signup</button>
         <p className={styles.text}>Already have an account? Login here <Link to="/user/Login">Login</Link></p>

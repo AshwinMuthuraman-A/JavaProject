@@ -2,12 +2,43 @@ import { useState, useRef } from "react";
 import DoneIcon from "@mui/icons-material/Done";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import styles from "../styles/CourseUpload.module.css";
-import zIndex from "@mui/material/styles/zIndex";
-import { positions } from "@mui/system";
+import { uploadCourseApi } from "../api/coursesApi";
 const CourseUpload = () => {
-  const handleCourseRegister = (e) => {};
+ const courseTitleRef = useRef(null);
+  const courseDescRef = useRef(null);
+  const courseLangRef = useRef(null);
+  const imp1Ref = useRef(null);
+  const imp2Ref = useRef(null);
+  const imp3Ref = useRef(null);
+  const imp4Ref = useRef(null);
+  const imp5Ref = useRef(null);
+  const imp6Ref = useRef(null);
+  const high1Ref = useRef(null);
+  const high2Ref = useRef(null);
+  const high3Ref = useRef(null);
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
+  const instructorId= sessionStorage.getItem("userId");
+   const handleCourseRegister = (e) => {
+    e.preventDefault();
+    let bodyFormData = new FormData();
+    //course obj
+    const courseObj = {
+      courseTitle:courseTitleRef.current.value,
+      courseDesc:courseDescRef.current.value,
+      courseLang:courseLangRef.current.value,
+      importantKeyPoints : [imp1Ref.current.value , imp2Ref.current.value , imp3Ref.current.value , imp4Ref.current.value , imp5Ref.current.value , imp6Ref.current.value],
+      highlightKeyPoints: [high1Ref.current.value , high2Ref.current.value , high3Ref.current.value]
+    }
+    const imageFile = imageUploader.current.files[0];
+    bodyFormData.append('course' , courseObj);
+    bodyFormData.append('imageFile' , imageFile);
+    bodyFormData.append('instructorId' , instructorId);
+    const response = uploadCourseApi(bodyFormData);
+    console.log(response);
+    console.log(courseObj);
+    console.log(imageUploader.current.files[0]);
+  };
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
     if (file) {
@@ -30,6 +61,7 @@ const CourseUpload = () => {
                 type="text"
                 placeholder="Course Title"
                 id="courseTitle"
+                ref={courseTitleRef}
               ></input>
             </h2>
             <p>
@@ -38,11 +70,16 @@ const CourseUpload = () => {
                 name="courseDescription"
                 id="courseDescription"
                 placeholder="Course Description"
+                ref={courseDescRef}
               />
             </p>
             <div className={styles.details}>
-              <input type="text" name="instructorName" id="instructorName" placeholder="Instructors name"/>
-              <input type="text" name="courseLanguage" id="courseLanguage" placeholder="Course's language"/>
+              {/* <input type="text" name="instructorName" id="instructorName" placeholder="Instructors name"/> */}
+              <input type="text" 
+              name="courseLanguage"
+              id="courseLanguage"
+              ref={courseLangRef}
+               placeholder="Course's language"/>
             </div>
           </div>
           <div className={styles.listContainer}>
@@ -51,27 +88,27 @@ const CourseUpload = () => {
             <ul>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point1" id="point1" />
+                <input type="text" name="point1" id="point1" ref={imp1Ref}/>
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point2" id="point2" />
+                <input type="text" name="point2" id="point2" ref={imp2Ref}/>
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point3" id="point3" />
+                <input type="text" name="point3" id="point3" ref={imp3Ref}/>
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point4" id="point4" />
+                <input type="text" name="point4" id="point4" ref={imp4Ref}/>
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point5" id="point5" />
+                <input type="text" name="point5" id="point5" ref={imp5Ref}/>
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point6" id="point6" />
+                <input type="text" name="point6" id="point6" ref={imp6Ref}/>
               </li>
             </ul>
           </div>
@@ -126,9 +163,9 @@ const CourseUpload = () => {
             <p>Give us the highlighting key points of your course.These will be displayed in the cards of the homepage</p>
 
             <ul>
-              <li><input type="text" name="impPoint1" id="impPoint1" /></li>
-              <li><input type="text" name="impPoint2" id="impPoint2" /></li>
-              <li><input type="text" name="impPoint3" id="impPoint3" /></li>
+              <li><input type="text" name="impPoint1" id="impPoint1" ref={high1Ref}/></li>
+              <li><input type="text" name="impPoint2" id="impPoint2" ref={high2Ref}/></li>
+              <li><input type="text" name="impPoint3" id="impPoint3" ref={high3Ref}/></li>
             </ul>
           </div>
         </div>

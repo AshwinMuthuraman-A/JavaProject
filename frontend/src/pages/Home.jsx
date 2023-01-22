@@ -1,15 +1,25 @@
 import MainCarousel from "../components/MainCarousel";
 import styles from "../styles/Home.module.css";
 import MultiCarousel from "../components/MultiCarousel";
-import LessonVideo from "../components/LessonVideo";
 import Fileupload from "../components/Fileupload";
 import LessonUpload from "./LessonUpload";
-import PdfRenderer from "../components/PdfRenderer";
 import {Link} from "react-router-dom"
 import { useEffect ,useState} from "react";
 import { allCoursesApi } from "../api/coursesApi";
+import { InstructorAlert, LoginAlert } from "../components/Alerts";
 const Home = () => {
   const [courses , setCourses] = useState([]);
+  const [alertState , setAlertState] = useState(false);
+  const userType = sessionStorage.getItem("userType");
+  const checkInstructor = (e) => {
+    const userType = sessionStorage.getItem("userType");
+    console.log(userType);
+    if (userType == null || userType == "Student") {
+      setAlertState(true);
+      return;
+    }
+      window.location.href = "/courseRegister/"
+  }
   useEffect(()=> {
     const allCourses = allCoursesApi();
     setCourses(allCourses);
@@ -17,6 +27,7 @@ const Home = () => {
   console.log(courses);
   return (
     <>
+    {alertState?InstructorAlert(setAlertState):null}
       <MainCarousel />
       <div className={styles.content}>
         <h2 className={styles.heading}>A broad selection of courses</h2>
@@ -33,13 +44,13 @@ const Home = () => {
             Instructors from around the world teach millions of students on
             Udemy. We provide the tools and skills to teach what you love.
           </p>
-          <Link to="/courseRegister">
-          <button>Become a instructor</button>
-          </Link>
+          {/* <Link to="/courseRegister"> */}
+          <button onClick = {e => checkInstructor(e)}>Upload a course</button>
+          {/* </Link> */}
         </div>
       </div>
-      <Fileupload/>
-      <LessonUpload/>
+      {/* <Fileupload/> */}
+      {/* <LessonUpload/> */}
     </>
   );
 };
