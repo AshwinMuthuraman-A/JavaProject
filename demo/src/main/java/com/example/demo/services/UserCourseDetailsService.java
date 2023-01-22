@@ -15,6 +15,6 @@ public interface UserCourseDetailsService {
 
 	String getCourseIdById(String ucDetailsId) throws UserCourseDetailsCollectionException;
 
-	UserCourseDetails getucDetailsById(String ucDetailsId) throws UserCourseDetailsCollectionException;
+	UserCourseDetails getUcdetailsById(String ucDetailsId) throws UserCourseDetailsCollectionException;
 
 }
