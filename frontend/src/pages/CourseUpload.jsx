@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import DoneIcon from "@mui/icons-material/Done";
-import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import styles from "../styles/CourseUpload.module.css";
 import zIndex from "@mui/material/styles/zIndex";
 import { positions } from "@mui/system";
@@ -55,30 +55,25 @@ const CourseUpload = () => {
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point1" id="point1" />
+                <input type="text" name="point2" id="point2" />
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point1" id="point1" />
+                <input type="text" name="point3" id="point3" />
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point1" id="point1" />
+                <input type="text" name="point4" id="point4" />
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point1" id="point1" />
+                <input type="text" name="point5" id="point5" />
               </li>
               <li>
                 <DoneIcon sx={{ marginRight: "10px" }} />
-                <input type="text" name="point1" id="point1" />
+                <input type="text" name="point6" id="point6" />
               </li>
             </ul>
-          </div>
-          <div className={styles.courseContent}>
-            <h2>Enter the number of lessons</h2>
-            <p>Every course must consist of multiple lessons.</p>
-            <input type="number" name="numOfLessons" id="numOfLessons" />
           </div>
         <div className="btnContainer">
             <input type="submit" value="Upload the lessons" />
@@ -122,13 +117,14 @@ const CourseUpload = () => {
                      position: "absolute",
                   }}
                 />
-              <PersonAddAltIcon 
+              <AddAPhotoIcon 
               sx={{fontSize:'3rem' , zIndex:'-1'}}
               />
               Click to upload Image
               </div>
             </div>
-            <h2>Give us the highlighting key points of your course.These will be displayed in the cards of the homepage</h2>
+            <p>Give us the highlighting key points of your course.These will be displayed in the cards of the homepage</p>
+
             <ul>
               <li><input type="text" name="impPoint1" id="impPoint1" /></li>
               <li><input type="text" name="impPoint2" id="impPoint2" /></li>

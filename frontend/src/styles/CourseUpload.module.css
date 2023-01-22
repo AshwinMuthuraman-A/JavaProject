@@ -27,7 +27,7 @@
     background-color: var(--textPrimary);
 }
  .courseCard{ 
-    padding:10px;
+    padding:20px;
     position: sticky;
     top:0;
     background-color: rgb(202, 202, 202);
@@ -104,6 +104,17 @@ input[id="courseDescription"] {
     color:var(--textPrimary);
     border-radius:10px;
 }
+ ul {
+list-style-type: none;
+padding:0px;
+margin:0px;
+}
 .courseCard input {
-    
+    font-size:1rem;
+    display: inline-block;
+    margin-block:10px;
+    width: 70%;
+    border-radius: 5px;
+    border:1px solid black;
+    min-height: 30px;
 }

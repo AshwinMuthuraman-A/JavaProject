@@ -3,8 +3,18 @@ import styles from "../styles/Home.module.css";
 import MultiCarousel from "../components/MultiCarousel";
 import LessonVideo from "../components/LessonVideo";
 import Fileupload from "../components/Fileupload";
+import LessonUpload from "./LessonUpload";
+import PdfRenderer from "../components/PdfRenderer";
 import {Link} from "react-router-dom"
+import { useEffect ,useState} from "react";
+import { allCoursesApi } from "../api/coursesApi";
 const Home = () => {
+  const [courses , setCourses] = useState([]);
+  useEffect(()=> {
+    const allCourses = allCoursesApi();
+    setCourses(allCourses);
+  },[])
+  console.log(courses);
   return (
     <>
       <MainCarousel />
@@ -29,6 +39,7 @@ const Home = () => {
         </div>
       </div>
       <Fileupload/>
+      <LessonUpload/>
     </>
   );
 };

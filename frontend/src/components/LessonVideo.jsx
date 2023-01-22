@@ -1,18 +1,21 @@
 import ReactPlayer from "react-player";
 import screenfull from "screenfull";
 import { Container } from "@mui/material";
-const LessonVideo = () => {
+import styles from "../styles/LessonVideo.module.css";
+const LessonVideo = (props) => {
+    const {VideoUrl} = props;
     return (
-        <Container maxWidth="md">
+        <div className={styles.videoContainer}>
     <div style={{width:'100%' , position:'relative'}}>
-          <ReactPlayer width={'100%'} height='100%' 
-          url="http://localhost:6039/file/download/63cad2147fb94a32aade13fd"
+          <ReactPlayer width={'100%'} 
+        //   url="http://localhost:6039/file/download/63cad2147fb94a32aade13fd"
+        url={VideoUrl}
           playing={true}
           muted={true}
           controls
           />
     </div>
-    </Container>
+    </div>
     )
 }
 export default LessonVideo;

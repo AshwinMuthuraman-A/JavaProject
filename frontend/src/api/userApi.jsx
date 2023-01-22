@@ -13,6 +13,7 @@ export const userLoginApi = async(userData) => {
 }
 export const userSignupApi = async(userData) => {
     try{
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     const response = await(axios.post(signupUrl, userData));
     return response;
     }

@@ -1,0 +1,18 @@
+.pageContainer {
+    border:1px solid red;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.sidebar {
+    flex:1 1 30%;
+    border:2px solid yellow;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+}
+.mainContent {
+    flex:1 1 70%;
+    border:2px solid green;
+}
