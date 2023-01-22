@@ -60,7 +60,7 @@ public class ModulesController {
 	}
 	
 	@PostMapping(value = "/create", consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
-	public ResponseEntity<?> createNewCourse(@RequestPart("courseId") String courseId,
+	public ResponseEntity<?> createNewModule(@RequestPart("courseId") String courseId,
 			                                 @RequestPart("module") String moduleValues, 
 			                                 @RequestPart("pdfFile") MultipartFile pdfFile,
 			                                 @RequestPart("videoFile") MultipartFile videoFile) {

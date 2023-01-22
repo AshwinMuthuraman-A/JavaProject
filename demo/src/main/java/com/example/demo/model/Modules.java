@@ -12,6 +12,7 @@ public class Modules {
 	
 	private String moduleId;
 	private String name;
+	private String desc;
 	private String pdfContent;
 	private String videoContent;
 	
@@ -20,9 +21,10 @@ public class Modules {
 		this.moduleId = null;
 	}
 	
-	public Modules(String name) {
+	public Modules(String name, String desc) {
 		super();
 		this.name = name;
+		this.desc = desc;
 	}
 	
 	public ObjectId getId() {
@@ -43,6 +45,14 @@ public class Modules {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 	public String getPdfContent() {

@@ -38,7 +38,6 @@
     <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
     <fullyQualifiedTypeName name="org.bson.types.ObjectId"/>
-    <fullyQualifiedTypeName name="com.example.demo.services.UserService"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonFormat"/>
     <fullyQualifiedTypeName name="com.example.demo.repo.ModulesRepo"/>
     <fullyQualifiedTypeName name="com.example.demo.model.Modules"/>
@@ -47,10 +46,6 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestPart"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PutMapping"/>
     <fullyQualifiedTypeName name="com.example.demo.Exceptions.CoursesCollectionException"/>
-    <fullyQualifiedTypeName name="com.example.demo.model.UserCourseDetails"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-    <fullyQualifiedTypeName name="com.example.demo.repo.UserCourseDetailsRepo"/>
-    <fullyQualifiedTypeName name="com.example.demo.services.UserCourseDetailsService"/>
     <fullyQualifiedTypeName name="com.example.demo.repo.UserRepo"/>
     <fullyQualifiedTypeName name="com.example.demo.repo.CoursesRepo"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -60,4 +55,9 @@
     <fullyQualifiedTypeName name="com.example.demo.Exceptions.ModulesCollectionException"/>
     <fullyQualifiedTypeName name="com.example.demo.Exceptions.UserCollectionException"/>
     <fullyQualifiedTypeName name="com.example.demo.Exceptions.UserCourseDetailsCollectionException"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.example.demo.repo.UserCourseDetailsRepo"/>
+    <fullyQualifiedTypeName name="com.example.demo.model.UserCourseDetails"/>
+    <fullyQualifiedTypeName name="com.example.demo.services.UserCourseDetailsService"/>
+    <fullyQualifiedTypeName name="com.example.demo.services.UserService"/>
 </qualifiedTypeNameHistroy>

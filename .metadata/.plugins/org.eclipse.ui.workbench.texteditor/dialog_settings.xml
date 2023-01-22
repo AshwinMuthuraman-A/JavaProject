@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="Optional"/>
+		<item key="selection" value="ucdce"/>
 		<list key="findhistory">
+			<item value="ucdce"/>
+			<item value="inc"/>
 			<item value="Optional"/>
 			<item value="Optional&lt;User&gt;"/>
 			<item value="add"/>
