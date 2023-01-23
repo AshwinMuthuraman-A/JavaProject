@@ -3,6 +3,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import styles from "../styles/CourseUpload.module.css";
 import { uploadCourseApi } from "../api/coursesApi";
+import {Link} from "react-router-dom";
 const CourseUpload = () => {
  const courseTitleRef = useRef(null);
   const courseDescRef = useRef(null);
@@ -19,25 +20,26 @@ const CourseUpload = () => {
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
   const instructorId= sessionStorage.getItem("userId");
-   const handleCourseRegister = (e) => {
+   const handleCourseRegister = async(e) => {
     e.preventDefault();
     let bodyFormData = new FormData();
     //course obj
     const courseObj = {
-      courseTitle:courseTitleRef.current.value,
-      courseDesc:courseDescRef.current.value,
-      courseLang:courseLangRef.current.value,
-      importantKeyPoints : [imp1Ref.current.value , imp2Ref.current.value , imp3Ref.current.value , imp4Ref.current.value , imp5Ref.current.value , imp6Ref.current.value],
-      highlightKeyPoints: [high1Ref.current.value , high2Ref.current.value , high3Ref.current.value]
+      "courseTitle":courseTitleRef.current.value,
+      "courseDesc":courseDescRef.current.value,
+      "courseLang":courseLangRef.current.value,
+      "importantKeyPoints":[imp1Ref.current.value , imp2Ref.current.value , imp3Ref.current.value , imp4Ref.current.value , imp5Ref.current.value , imp6Ref.current.value],
+      "highlightKeyPoints":[high1Ref.current.value , high2Ref.current.value , high3Ref.current.value],
     }
     const imageFile = imageUploader.current.files[0];
-    bodyFormData.append('course' , courseObj);
+    bodyFormData.append('course' , JSON.stringify(courseObj));
     bodyFormData.append('imageFile' , imageFile);
     bodyFormData.append('instructorId' , instructorId);
-    const response = uploadCourseApi(bodyFormData);
-    console.log(response);
+    console.log(bodyFormData);
+    const response = await uploadCourseApi(bodyFormData);
+    sessionStorage.setItem("uploadCourseId" , response.data);
+    console.log(`The response is ${response}`);
     console.log(courseObj);
-    console.log(imageUploader.current.files[0]);
   };
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
@@ -113,9 +115,9 @@ const CourseUpload = () => {
             </ul>
           </div>
         <div className="btnContainer">
-            <input type="submit" value="Upload the lessons" />
+            <input type="submit" value="Register the course" />
         </div>
- 
+        <Link to ="/lessonAdd">Proceed to upload Lessons</Link>
         </div>
        <div className={styles.rightCol}>
           <div className={styles.filler}></div>

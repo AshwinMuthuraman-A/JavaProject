@@ -1,7 +1,8 @@
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import CourseCard from './CourseCards';
-const MultiCarousel = () => {
+const MultiCarousel = (props) => {
+  const {allCourses} = props;
     const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -21,20 +22,7 @@ const MultiCarousel = () => {
 };
     return (
         <Carousel responsive={responsive} autoPlay={false}>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
-            <CourseCard/>
+          {allCourses.map((course) => <CourseCard course={course}/>)}
         </Carousel>
     )
 }

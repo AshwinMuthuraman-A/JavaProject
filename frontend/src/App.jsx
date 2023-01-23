@@ -10,6 +10,7 @@ import GlobalStyle from './globalStyles';
 import './App.css'
 import PrimarySearchAppBar from './components/Navbar1';
 import Footer from './components/Footer';
+import LessonUpload from './pages/LessonUpload';
 function App() {
   return (
     <>
@@ -31,6 +32,7 @@ const AllRoutes = () => {
       <Route path="/course/:id" element={<Course/>}/>
       <Route path="/lesson/:id/" element={<Lesson/>}/>
       <Route path="/courseRegister/" element={<CourseUpload/>}/>
+      <Route path="/lessonAdd/" element={<LessonUpload/>}/>
     </Routes>
   )
 }

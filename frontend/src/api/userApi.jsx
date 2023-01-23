@@ -1,6 +1,7 @@
 import axios from "axios";
 const loginUrl = "http://localhost:6039/user/login"
 const signupUrl = "http://localhost:6039/user/signup"
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 export const userLoginApi = async(userData) => {
     try{
     const response = await(axios.post(loginUrl , userData));
@@ -13,7 +14,6 @@ export const userLoginApi = async(userData) => {
 }
 export const userSignupApi = async(userData) => {
     try{
-    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     const response = await(axios.post(signupUrl, userData));
     return response;
     }
