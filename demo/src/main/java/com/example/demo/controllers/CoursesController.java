@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -41,8 +42,9 @@ public class CoursesController {
 		return coursesRepos.findAll();
 	}
 	
-	@GetMapping(value="/get-course")
-	public ResponseEntity<?> getCourse(@RequestPart("courseId") String courseId) {
+	@GetMapping(value="/get-course/{courseId}")
+//	public ResponseEntity<?> getCourse(@RequestPart("courseId") String courseId)
+	public ResponseEntity<?>getCourse(@PathVariable("courseId") String courseId){
 		try {
 			Courses course = coursesService.getCourseById(courseId);
 			return new ResponseEntity<Courses>(course, HttpStatus.OK);

@@ -47,7 +47,7 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping(value = "/login")
+	@PostMapping(value = "/login")
 	public ResponseEntity<?> userLogin(@RequestBody LoginDetails loginDetails) {
 		try {
 			User user = userService.loginUser(loginDetails.getLoginEmail(), loginDetails.getLoginPassword());

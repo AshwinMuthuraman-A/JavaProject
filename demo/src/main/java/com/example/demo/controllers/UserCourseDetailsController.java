@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class UserCourseDetailsController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping(value = "/getall")
+	@PostMapping(value = "/getall")
 	public ResponseEntity<?> getAllUcdetailsOfUser(@RequestPart("userId") String userId) {
 		try {
 			List<String> ucDetailsIdList = userService.getAllUcdetails(userId);
