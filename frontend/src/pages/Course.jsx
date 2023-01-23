@@ -42,8 +42,8 @@ const Course = () => {
   // console.log(course);
   const handleCourseEnrollment = async(e) => {
     e.preventDefault();
-    const userId = sessionStorage.getItem("userId");
-    const userType = sessionStorage.getItem("userType");
+    const userId = localStorage.getItem("userId");
+    const userType = localStorage.getItem("userType");
     if(userId == null) {
       setAlertState(true);
       return;
@@ -53,14 +53,14 @@ const Course = () => {
      let courseId = window.location.href;
     courseId = courseId.split('/');
     courseId = courseId[courseId.length-1];
-        bodyFormData.append('userId' , sessionStorage.getItem("userId"));
+        bodyFormData.append('userId' , localStorage.getItem("userId"));
         bodyFormData.append('courseId' ,courseId);
         const response = await courseEnrollApi(bodyFormData);
         console.log(response);
     }
   }
   const checkEnrollment = async() => {
-    const userId = sessionStorage.getItem("userId");
+    const userId = localStorage.getItem("userId");
     console.log(`The user id is ${userId}`);
      let course = window.location.href;
     course = course.split('/');

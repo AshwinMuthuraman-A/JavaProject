@@ -8,9 +8,9 @@ import { InstructorAlert, LoginAlert } from "../components/Alerts";
 const Home = () => {
   const [allCourses , setCourses] = useState([]);
   const [alertState , setAlertState] = useState(false);
-  const userType = sessionStorage.getItem("userType");
+  const userType = localStorage.getItem("userType");
   const checkInstructor = (e) => {
-    //const userType = sessionStorage.getItem("userType");
+    //const userType = localStorage.getItem("userType");
     //console.log(userType);
     const userType = null;
     if (userType == null || userType == "Student") {

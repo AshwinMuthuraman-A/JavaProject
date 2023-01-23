@@ -19,7 +19,7 @@ const CourseUpload = () => {
   const high3Ref = useRef(null);
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
-  const instructorId= sessionStorage.getItem("userId");
+  const instructorId= localStorage.getItem("userId");
    const handleCourseRegister = async(e) => {
     e.preventDefault();
     let bodyFormData = new FormData();
@@ -37,7 +37,7 @@ const CourseUpload = () => {
     bodyFormData.append('instructorId' , instructorId);
     console.log(bodyFormData);
     const response = await uploadCourseApi(bodyFormData);
-    sessionStorage.setItem("uploadCourseId" , response.data);
+    localStorage.setItem("uploadCourseId" , response.data);
     console.log(`The response is ${response}`);
     console.log(courseObj);
   };

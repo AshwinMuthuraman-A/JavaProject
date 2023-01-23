@@ -40,9 +40,9 @@ const handleSignup = async(e) => {
   const response = await userSignupApi(userData);
   if (response.status == 200) {
     console.log("Signed up successfully");
-     sessionStorage.setItem("userId" , response.data.userId);
-     sessionStorage.setItem("userType", response.data.userType);
-     sessionStorage.setItem("userName" , response.data.userName);
+     localStorage.setItem("userId" , response.data.userId);
+     localStorage.setItem("userType", response.data.userType);
+     localStorage.setItem("userName" , response.data.userName);
   }
   console.log(response);
 };

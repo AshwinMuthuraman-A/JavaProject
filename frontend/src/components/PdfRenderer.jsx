@@ -4,7 +4,7 @@ import styles from "../styles/PdfRenderer.module.css"
 const PdfRenderer = (props) => {
   const {PdfUrl} = props;
   return (
-    <div >
+    <div className={styles.frame}>
  <Iframe url={PdfUrl}
         id={PdfUrl}
         className={styles.frame}

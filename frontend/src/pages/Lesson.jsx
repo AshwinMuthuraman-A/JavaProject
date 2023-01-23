@@ -1,58 +1,137 @@
 import LessonVideo from "../components/LessonVideo";
 import PdfRenderer from "../components/PdfRenderer";
-import { useState ,useEffect} from "react";
-import styles from "../styles/Lesson.module.css"
-import { getModuleApi } from "../api/coursesApi";
-const Lesson = ()=> {
-    const [videoState , setVideoState] = useState(true);
+import { useState, useEffect } from "react";
+import styles from "../styles/Lesson.module.css";
+import { getCourseApi, getModuleApi } from "../api/coursesApi";
+import { getCourseDetailsApi, markCompletedApi } from "../api/userApi";
+import { Link } from "react-router-dom";
+import LessonsSidebar from "../components/LessonsSidebar";
+import CompletedBtn from "../components/CompletedBtn";
+const Lesson = () => {
+  const [videoState, setVideoState] = useState(true);
+  const [course, setCourse] = useState({});
+  const [lesson, setLesson] = useState({});
+  const [moduleList, setModuleList] = useState([]);
+  const [userCompletion , setUserCompletion] = useState([]);
+  const [completed , setCompleted] = useState(false);
+  const userId = localStorage.getItem("userId");
+  console.log(userId);
+  const findLessonId = () => {
     let lessonId = window.location.href;
-    lessonId = lessonId.split('/');
+    lessonId = lessonId.split("/");
     lessonId = lessonId[lessonId.length - 1];
-    const [lesson , setLessson] = useState({});
-    useEffect(() => {
-    let lessonId = window.location.href;
-    lessonId = lessonId.split('/');
+    return lessonId;
+  };
+  const findCurrentLesson = async () => {
+    const currentId = findLessonId();
+    //need the course id now shite
+  };
+  const getModulesList = async (course) => {
+    const { modulesList } = course;
+    let moduleArr = [];
+    modulesList.forEach(async (ele) => {
+      const response = await getModuleApi(ele);
+      const { moduleId, name } = response.data;
+      setModuleList((oldVal) => oldVal?[...oldVal , {moduleId , name}] : [{moduleId,name}]);
+      moduleArr.push({ moduleId, name });
+    });
+    return moduleArr;
+  };
+  const fetchAll = async () => {
+  let lessonId = window.location.href;
+    lessonId = lessonId.split("/");
     lessonId = lessonId[lessonId.length - 1];
-        console.log(lessonId);
-        getModuleApi(lessonId).then((resolve) => {
-            setLessson(resolve.data);
-        })
-    } , [])
-   const handleVideoClick = (e) => {
-        setVideoState(true);
-    }
-    const handlePdfClick =(e) => {
-        if(videoState)
-            setVideoState(false);
-    }
-    return (
-        <>
-        <div className={styles.header}>Course name : Current Lesson Name{lesson.name}</div>
-        <div className={styles.pageContainer}>
+    console.log(lessonId);
+    let myLesson;
+    let myCourse;
+    let mymoduleList;
+    getModuleApi(lessonId).then((resolve) => {
+      myLesson = resolve.data;
+    setLesson(myLesson);
+      const { courseId } = resolve.data;
+      getCourseApi(courseId).then((resolve) => {
+        console.log("1");
+        console.log(resolve.data);
+        myCourse = resolve.data;
+    setCourse(myCourse);
+      let bodyFormData = new FormData();
+      bodyFormData.append('userId' ,localStorage.getItem("userId") );
+      getCourseDetailsApi(bodyFormData).then((resolve) => {
+        console.log("Deta");
+        console.log(resolve.data);
+        console.log(course.courseId);
+        setUserCompletion(resolve.data);
+        console.log(userCompletion);
+      })
+        // setCourse(resolve.data);
+        const response = getModulesList(resolve.data);
+        console.log("2");
+        console.log(response);
+      });
+   });
+  };
+  useEffect(() => {
+    fetchAll()
+  },[]);
+  const handleVideoClick = (e) => {
+    setVideoState(true);
+  };
+  const handlePdfClick = (e) => {
+    if (videoState) setVideoState(false);
+  };
+return (
+    <>
+      <div className={styles.header}>
+        {course ? course.courseTitle: "Loading failed"} : {lesson?lesson.name:"Loading faile"}
+      </div>
+      <div className={styles.pageContainer}>
         <div className={styles.sidebar}>
-            <ul>
-                <li>Lesson1</li>
-                <li>Lesson2</li>
-                <li>Lesson3</li>
-                <li>Lesson4</li> 
-            </ul>
+            <LessonsSidebar moduleList={moduleList} umodulesCompleted={userCompletion.filter(ele => ele.courseId == course.courseId)}/>
+          {/* {
+          moduleList
+            ? moduleList.map((ele , index) => <div onClick ={(e) => handleLessonChange(ele.moduleId)}>{ele.name}
+      {userCompletion.map((ele , sindex) => {
+            if(ele.courseId == course.courseId &&index==sindex){
+                return ele.modulesCompleted.map((ele) => {
+                    return ele? "true" : "false";
+                })
+            }
+            {
+                userCompletion.filter((ele , index) => {
+                    ele.c
+                })
+            }
+            return null;
+        })}
+            
+            </div>)
+            :null} */}
+       
         </div>
-        <div className={styles.mainContent}>
-            <p className={styles.description}>The lesson's description</p>
-        <button onClick={ e => handleVideoClick(e)}>Video</button>
-        <button onClick = {e =>handlePdfClick(e)}> Pdf Materials</button>
-        <div>
-         {videoState? 
-         <LessonVideo VideoUrl={`http://localhost:6039/file/download/${lesson.videoContent}`}/>:
-          <PdfRenderer 
-         PdfUrl={`http://localhost:6039/file/download/${lesson.pdfContent}`} 
-        //  PdfUrl="file:///C:/Users/Kathir/Documents/2020103016-Record.pdf"
-         />}
-        </div>
-      <button>Mark as Completed</button>
-        </div>
+        <div
+        >
        </div>
-       </>
-    )
-}
+        <div className={styles.mainContent}>
+          <p className={styles.description}>
+            {lesson?lesson.desc:"Loading failed"}
+          </p>
+          <button onClick={(e) => handleVideoClick(e)}>Video</button>
+          <button onClick={(e) => handlePdfClick(e)}> Pdf Materials</button>
+          <div className={styles.contentContainer}>
+            {videoState ? (
+              <LessonVideo
+                VideoUrl={`http://localhost:6039/file/download/${lesson ? lesson.videoContent: ""}`}
+              />
+            ) : (
+              <PdfRenderer
+                PdfUrl={`http://localhost:6039/file/download/${lesson?lesson.pdfContent:""}`}
+              />
+            )}
+          </div>
+          <CompletedBtn moduleList = {moduleList} course={course} findLessonId={findLessonId} setCompleted={setCompleted} userCompletion ={userCompletion.filter(ele => ele.courseId ==course.courseId)} currentId = {findLessonId()}/>
+        </div>
+      </div>
+    </>
+  );
+};
 export default Lesson;

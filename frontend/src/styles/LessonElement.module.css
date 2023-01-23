@@ -1,5 +1,8 @@
+  Link{
+    text-decoration: none;
+  }
   .lessonContainer {
-        border:1px solid black;
+        border:1px solid red;
         width: 100%;
         padding:1rem;
         display: flex;
@@ -7,8 +10,10 @@
         justify-content: center;
         flex-direction: column;
         	background: rgba(225,225,225, 0.7);
+        font-family: "PrimaryFont";
     }
     .lessonComponent {
+        display: block;
         border:1px solid black;
         width: 85%;
         padding:1rem;
@@ -16,6 +21,10 @@
         margin-bottom: 10px;
         background-color: rgb(245,245,245);
         transition: all 0.5s ease-in;
+    }
+    .lessonComponent * {
+
+        text-decoration: none;
     }
     .lessonComponent:hover{
         cursor: pointer;

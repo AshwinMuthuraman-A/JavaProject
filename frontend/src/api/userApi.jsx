@@ -3,6 +3,7 @@ const loginUrl = "http://localhost:6039/user/login"
 const signupUrl = "http://localhost:6039/user/signup"
 const courseEnrollUrl = "http://localhost:6039/user/register-course"
 const getCourseDetailsUrl = "http://localhost:6039/user-course-details/getall"
+const markReadUrl = "http://localhost:6039/user/update-module-markasread"
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 export const userLoginApi = async(userData) => {
     try{
@@ -37,6 +38,17 @@ export const getCourseDetailsApi = async(payload) => {
     try {
         console.log(payload);
         const response = await axios.post(getCourseDetailsUrl , payload);
+        return response;
+    } catch (error) {
+        console.log(error.message);
+        return error;
+    }
+
+}
+export const markCompletedApi = async(payload) => {
+    try {
+        console.log(payload);
+        const response = await axios.put(markReadUrl , payload);
         return response;
     } catch (error) {
         console.log(error.message);

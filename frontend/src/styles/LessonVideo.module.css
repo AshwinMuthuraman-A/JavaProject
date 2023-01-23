@@ -1,6 +1,6 @@
 .videoContainer {
     border:2px solid var(--textSecondary);
-    width: 80%;
+    width: 100%;
     min-height: 40vh;
     /* max-height: 50vh; */
     display: flex;

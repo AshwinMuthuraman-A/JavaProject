@@ -1,6 +1,5 @@
 //receive props and get content
 import styles from "../styles/CourseCard.module.css";
-import { downloadApi } from "../api/fileApi";
 import { Link } from "react-router-dom";
 const CourseCard = (props) => {
 	const {course} = props;
@@ -11,22 +10,13 @@ const CourseCard = (props) => {
 	console.log({props});
 	const baseUrl1 = 'http://localhost:6039/file/download/';
 	const reqUrl = baseUrl1.concat(imageId);
-	const courseImg = async(imageId) => {
-		return await downloadApi(imageId);
-	}
   return (
     <div class="card" className={styles.card}>
       <div class="content" className={styles.content}>
         <div class="front" className={styles.front}>
-          <div
-            style={{
-              backgroundImage: `url(${downloadApi(imageId)})`,
-              height: "300px",
-              width: "100%",
-            }}
-          >
             {/* <img src={"http://localhost:6039/file/download/63cd8aa89c75d5347d2afd38"}></img> */}
-			<img src={reqUrl} alt="" />
+            <div className={styles.imgContainer}>
+			<img src={reqUrl} alt="" className={styles.img}/>
           </div>
           <div className={styles.courseDetails}>
             <h2 className={styles.heading}>{courseTitle}</h2>

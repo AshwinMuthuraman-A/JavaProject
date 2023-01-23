@@ -17,14 +17,15 @@ const LessonUpload = () => {
       const {titleRef , descRef , videoRef , pdfRef} = ele;
       const moduleObj = {
         name:titleRef.current.value,
-        desc:descRef.current.value
+        desc:descRef.current.value,
+        courseId:localStorage.getItem("uploadCourseId")
       }
       const videoFile = videoRef.current.files[0];
       const pdfFile = pdfRef.current.files[0];
       console.log(videoFile);
       console.log(pdfFile);
       let bodyFormData = new FormData();
-      bodyFormData.append("courseId" , "63cd8aa89c75d5347d2afd54");
+      bodyFormData.append("courseId" , localStorage.getItem("uploadCourseId"));
       bodyFormData.append("module" , JSON.stringify(moduleObj));
       bodyFormData.append("pdfFile" , pdfFile);
       bodyFormData.append("videoFile" , videoFile);

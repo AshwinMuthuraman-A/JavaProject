@@ -34,9 +34,9 @@ const handleLogin = async(e) => {
   }
   console.log(userData);
   const response = await userLoginApi(userData);
-  sessionStorage.setItem("userId" , response.data.userId);
-  sessionStorage.setItem("userType", response.data.userType);
-  sessionStorage.setItem("userName" , response.data.userName);
+  localStorage.setItem("userId" , response.data.userId);
+  localStorage.setItem("userType", response.data.userType);
+  localStorage.setItem("userName" , response.data.userName);
   console.log(response);
 };
   return (
