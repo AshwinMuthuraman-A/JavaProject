@@ -1,8 +1,6 @@
 import MainCarousel from "../components/MainCarousel";
 import styles from "../styles/Home.module.css";
 import MultiCarousel from "../components/MultiCarousel";
-import Fileupload from "../components/Fileupload";
-import LessonUpload from "./LessonUpload";
 import {Link} from "react-router-dom"
 import { useEffect ,useState} from "react";
 import { allCoursesApi } from "../api/coursesApi";
@@ -12,16 +10,24 @@ const Home = () => {
   const [alertState , setAlertState] = useState(false);
   const userType = sessionStorage.getItem("userType");
   const checkInstructor = (e) => {
-    const userType = sessionStorage.getItem("userType");
-    console.log(userType);
+    //const userType = sessionStorage.getItem("userType");
+    //console.log(userType);
+    const userType = null;
     if (userType == null || userType == "Student") {
       setAlertState(true);
       return;
     }
   }
-  useEffect(async()=> {
-    const allCourses = await allCoursesApi();
-    setCourses(allCourses.data);
+  useEffect(()=> {
+    const fetchFun = async() =>{
+      return await allCoursesApi();
+    }
+    const allCourses = fetchFun();
+    console.log("Hell");
+    console.log(allCourses.then((resp) => {
+      console.log(resp);
+    setCourses(resp.data);
+    }));
   },[])
   console.log(allCourses);
   return (

@@ -29,7 +29,7 @@ const AllRoutes = () => {
       <Route path="/user/login" element={<Login/>}/>
       <Route path="/user/signup" element={<Signup/>}/>
       <Route path="/" element={<Home/>}/>
-      <Route path="/course/:id" element={<Course/>}/>
+      <Route path="/course/:id/" element={<Course/>}/>
       <Route path="/lesson/:id/" element={<Lesson/>}/>
       <Route path="/courseRegister/" element={<CourseUpload/>}/>
       <Route path="/lessonAdd/" element={<LessonUpload/>}/>

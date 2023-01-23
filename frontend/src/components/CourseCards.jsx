@@ -1,6 +1,7 @@
 //receive props and get content
 import styles from "../styles/CourseCard.module.css";
 import { downloadApi } from "../api/fileApi";
+import { Link } from "react-router-dom";
 const CourseCard = (props) => {
 	const {course} = props;
 	console.log(course);
@@ -8,8 +9,8 @@ const CourseCard = (props) => {
     course;
 	console.log("here");	
 	console.log({props});
-	const baseUrl = 'http://localhost:6039/file/download/';
-	const reqUrl = baseUrl.concat(imageId);
+	const baseUrl1 = 'http://localhost:6039/file/download/';
+	const reqUrl = baseUrl1.concat(imageId);
 	const courseImg = async(imageId) => {
 		return await downloadApi(imageId);
 	}
@@ -40,11 +41,13 @@ const CourseCard = (props) => {
           <p>Updated date</p>
           <p>Java basic programming for beginners , Learn java from scratch</p>
           <ul>
-            {/* <li>{highlightKeyPoints[0]}</li>
+            <li>{highlightKeyPoints[0]}</li>
             <li>{highlightKeyPoints[1]}</li>
-            <li>{highlightKeyPoints[2]}</li> */}
+            <li>{highlightKeyPoints[2]}</li>
           </ul>
+          <Link to= {`/course/${courseId}`}>
           <button className={styles.viewBtn}>View Course Details</button>
+          </Link>
         </div>
       </div>
     </div>
