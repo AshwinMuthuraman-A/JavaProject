@@ -51,7 +51,7 @@ public class ModulesController {
 	}
 	
 	@GetMapping(value="/get-module/{moduleId}")
-	public ResponseEntity<?> getModule(@PathVariable("moduleId") String moduleId) {
+	public ResponseEntity<?> getModule(@PathVariable String moduleId) {
 		try {
 			Modules module = modulesService.getModuleById(moduleId);
 			return new ResponseEntity<Modules>(module, HttpStatus.OK);
@@ -61,13 +61,12 @@ public class ModulesController {
 	}
 	
 	@PostMapping(value = "/create", consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
-	public ResponseEntity<?> createNewModule(@RequestPart("courseId") String courseId,
-			                                 @RequestPart("module") String moduleValues, 
+	public ResponseEntity<?> createNewModule(@RequestPart("module") String moduleValues, 
 			                                 @RequestPart("pdfFile") MultipartFile pdfFile,
 			                                 @RequestPart("videoFile") MultipartFile videoFile) {
 		try {
 			Modules module = modulesService.createModule(moduleValues, pdfFile, videoFile);
-			coursesService.addModuletoCourse(courseId, module.getModuleId());
+			coursesService.addModuletoCourse(module.getCourseId(), module.getModuleId());
 			return new ResponseEntity<String>(module.getModuleId(), HttpStatus.OK);
 		} catch(IOException ioe) {
 			return new ResponseEntity<>(ioe.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);

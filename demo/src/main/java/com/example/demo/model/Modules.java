@@ -11,6 +11,7 @@ public class Modules {
 	private ObjectId id;
 	
 	private String moduleId;
+	private String courseId;
 	private String name;
 	private String desc;
 	private String pdfContent;
@@ -37,6 +38,14 @@ public class Modules {
 
 	public void setModuleId(String moduleId) {
 		this.moduleId = moduleId;
+	}
+	
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
 
 	public String getName() {

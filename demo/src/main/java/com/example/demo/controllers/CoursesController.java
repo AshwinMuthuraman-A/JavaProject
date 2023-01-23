@@ -43,8 +43,7 @@ public class CoursesController {
 	}
 	
 	@GetMapping(value="/get-course/{courseId}")
-//	public ResponseEntity<?> getCourse(@RequestPart("courseId") String courseId)
-	public ResponseEntity<?>getCourse(@PathVariable("courseId") String courseId){
+	public ResponseEntity<?>getCourse(@PathVariable String courseId){
 		try {
 			Courses course = coursesService.getCourseById(courseId);
 			return new ResponseEntity<Courses>(course, HttpStatus.OK);
