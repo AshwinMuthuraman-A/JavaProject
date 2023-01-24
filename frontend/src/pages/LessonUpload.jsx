@@ -15,8 +15,37 @@ const LessonUpload = () => {
   };
   const handleUploadLessons = async(e) => {
     e.preventDefault();
-    fileRefs.map(async(ele) => {
-      const {titleRef , descRef , videoRef , pdfRef} = ele;
+    // fileRefs.map(async(ele) => {
+    //   const {titleRef , descRef , videoRef , pdfRef} = ele;
+    //   const moduleObj = {
+    //     name:titleRef.current.value,
+    //     desc:descRef.current.value,
+    //     courseId:localStorage.getItem("uploadCourseId")
+    //   }
+    //   const videoFile = videoRef.current.files[0];
+    //   const pdfFile = pdfRef.current.files[0];
+    //   console.log(videoFile);
+    //   console.log(pdfFile);
+    //   let bodyFormData = new FormData();
+    //   bodyFormData.append("courseId" , localStorage.getItem("uploadCourseId"));
+    //   bodyFormData.append("module" , JSON.stringify(moduleObj));
+    //   bodyFormData.append("pdfFile" , pdfFile);
+    //   bodyFormData.append("videoFile" , videoFile);
+    //   console.log(bodyFormData);
+    //   uploadModuleApi(bodyFormData).then((resolve) => {
+    //     console.log("")
+    //   });
+    //   if(response.status == 200) {
+
+    //   }
+    //   console.log(response);
+    // });
+    fileRefs.map(async (ele , idx) => {
+      await uploadSingleLesson(idx);
+    })
+  }
+  const uploadSingleLesson = async(idx) => {
+    const {titleRef , descRef , videoRef , pdfRef} = fileRefs[idx];
       const moduleObj = {
         name:titleRef.current.value,
         desc:descRef.current.value,
@@ -32,10 +61,13 @@ const LessonUpload = () => {
       bodyFormData.append("pdfFile" , pdfFile);
       bodyFormData.append("videoFile" , videoFile);
       console.log(bodyFormData);
-      const response = await uploadModuleApi(bodyFormData);
-      console.log(response);
-    });
+      uploadModuleApi(bodyFormData).then((resolve) => {
+       if(resolve.status == 200) {
+        console.log(`Lesson ${idx} updated successfully`);
+      }
+      });
   }
+
   return (
     <>
     <div style={{background:"rgb(240,240,240,0.7)"}}>

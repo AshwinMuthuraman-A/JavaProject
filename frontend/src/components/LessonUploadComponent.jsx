@@ -1,5 +1,6 @@
 import {useRef} from "react"
 import styles from "../styles/LessonUploadComponent.module.css";
+import { uploadModuleApi } from "../api/coursesApi";
 const LessonUploadComponent = (props) => {
     const {id , fileRefs , setFileRefs} = props;
     const videoRef = useRef(0);
@@ -7,6 +8,74 @@ const LessonUploadComponent = (props) => {
     const titleRef = useRef(null);
     const descRef = useRef(null);
     setFileRefs((oldVal) => [...oldVal , {titleRef , descRef , videoRef , pdfRef}]);
+//   const handleUploadLessons = async(e) => {
+//     e.preventDefault();
+//       const moduleObj = {
+//         name:titleRef.current.value,
+//         desc:descRef.current.value,
+//         courseId:localStorage.getItem("uploadCourseId")
+//       }
+//       const videoFile = videoRef.current.files[0];
+//       const pdfFile = pdfRef.current.files[0];
+//       console.log(videoFile);
+//       console.log(pdfFile);
+//       let bodyFormData = new FormData();
+//       bodyFormData.append("courseId" , localStorage.getItem("uploadCourseId"));
+//       bodyFormData.append("module" , JSON.stringify(moduleObj));
+//       bodyFormData.append("pdfFile" , pdfFile);
+//       bodyFormData.append("videoFile" , videoFile);
+//       console.log(bodyFormData);
+//       const response = await uploadModuleApi(bodyFormData);
+
+//     fileRefs.map(async(ele) => {
+//       const {titleRef , descRef , videoRef , pdfRef} = ele;
+//       const moduleObj = {
+//         name:titleRef.current.value,
+//         desc:descRef.current.value,
+//         courseId:localStorage.getItem("uploadCourseId")
+//       }
+//       const videoFile = videoRef.current.files[0];
+//       const pdfFile = pdfRef.current.files[0];
+//       console.log(videoFile);
+//       console.log(pdfFile);
+//       let bodyFormData = new FormData();
+//       bodyFormData.append("courseId" , localStorage.getItem("uploadCourseId"));
+//       bodyFormData.append("module" , JSON.stringify(moduleObj));
+//       bodyFormData.append("pdfFile" , pdfFile);
+//       bodyFormData.append("videoFile" , videoFile);
+//       console.log(bodyFormData);
+//       const response = await uploadModuleApi(bodyFormData);
+//       if(response.status == 200) {
+        
+//       }
+//       console.log(response);
+//     });
+//   }
+    const UploadLesson =(e) => {
+        e.preventDefault();
+  const moduleObj = {
+        name:titleRef.current.value,
+        desc:descRef.current.value,
+        courseId:localStorage.getItem("uploadCourseId")
+      }
+      const videoFile = videoRef.current.files[0];
+      const pdfFile = pdfRef.current.files[0];
+      console.log(videoFile);
+      console.log(pdfFile);
+      let bodyFormData = new FormData();
+      bodyFormData.append("courseId" , localStorage.getItem("uploadCourseId"));
+      bodyFormData.append("module" , JSON.stringify(moduleObj));
+      bodyFormData.append("pdfFile" , pdfFile);
+      bodyFormData.append("videoFile" , videoFile);
+      console.log(bodyFormData);
+      uploadModuleApi(bodyFormData).then((resolve) =>
+      {
+        if(resolve.status == 200) {
+            console.log("Lesson updated successfully");
+        }
+      });
+    }
+
     return(
         <div className={styles.formContainer}>
             <div className={styles.row}>
@@ -24,6 +93,9 @@ const LessonUploadComponent = (props) => {
             <div className={styles.row}>
                 <label htmlFor="Pdf">Lesson's Pdf</label>
                 <input type="file" ref={pdfRef }name={`pdf${id}`} id={`pdf${id}`} placeholder="Upload the lesson pdf"/>
+            </div>
+            <div className={styles.row}>
+                <button onClick={ e => UploadLesson(e)}> Upload</button>
             </div>
         </div>
     )
