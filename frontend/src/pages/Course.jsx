@@ -6,7 +6,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import { getCourseApi, getModuleApi } from "../api/coursesApi";
 import { courseEnrollApi, getCourseDetailsApi } from "../api/userApi";
 import LessonList from "../components/LessonsList";
-import { LoginAlert } from "../components/Alerts";
+import { InvalidUserTypeAlert, LoginAlert } from "../components/Alerts";
 import Footer from "../components/Footer";
 const Course = () => {
   const [course , setCourse] = useState({});
@@ -14,7 +14,9 @@ const Course = () => {
   const [highPointsList , setHightPointsList] = useState([]);
   const [moduleList , setModuleList] = useState([]);
   const [alertState , setAlertState] = useState(false);
+  const [invalidType , setInvalidType] = useState(false);
   const [userCourseDetails , setUserCourseDetails] = useState({});
+  const [enrolled , setEnrolled] = useState(false);
   useEffect (() => {
     let url = window.location.href;
     url = url.split('/');
@@ -49,6 +51,9 @@ const Course = () => {
       setAlertState(true);
       return;
     }
+    if(userType === "Instructor") {
+      setInvalidType(true);
+    }
     if(userType === "Student") {
         let bodyFormData = new FormData();
      let courseId = window.location.href;
@@ -58,6 +63,8 @@ const Course = () => {
         bodyFormData.append('courseId' ,courseId);
         const response = await courseEnrollApi(bodyFormData);
         console.log(response);
+        const temp = window.location.href;
+        window.location.href = temp;
     }
   }
   const checkEnrollment = async() => {
@@ -82,6 +89,7 @@ const Course = () => {
         console.log(courseDetails);
         const {courseCompletedPercentage,modulesCompleted} = courseDetails;
         setUserCourseDetails({courseCompletedPercentage , modulesCompleted});
+        setEnrolled(true);
         console.log("UserCourseDetails");
         console.log(userCourseDetails);
       }
@@ -92,6 +100,7 @@ const Course = () => {
   return (
     <>
     {alertState ? LoginAlert(setAlertState) : null}
+    {invalidType? InvalidUserTypeAlert(setInvalidType):null}
     <div className={styles.flexContainer}>
       <div className={styles.leftCol}>
         <div className={styles.header}>
@@ -115,7 +124,6 @@ const Course = () => {
             <li>
               <DoneIcon sx={{ marginRight: "10px" }} />
               {pointsList[1]}
-              {/* {course.importantKeyPoints[1]} */}
             </li>
             <li>
               <DoneIcon sx={{ marginRight: "10px" }} />
@@ -143,7 +151,10 @@ const Course = () => {
       <div className={styles.rightCol}>
         <div className={styles.filler}></div>
         <div className={styles.courseCard}>
-          <img src={`http://localhost:6039/file/download/${course.imageId}`}></img>
+          <img src={`http://localhost:6039/file/download/${course.imageId}`} style={{
+            width:"100%",
+            height:"200px"
+          }}></img>
           <h2>{course.courseTitle}</h2>
           <p>Number of Enrollments:{course.numberOfStudentsRegistered}</p>
           <ul>
@@ -151,7 +162,10 @@ const Course = () => {
             <li>{highPointsList[1]}</li>
             <li>{highPointsList[2]}</li>
           </ul>
-          <button onClick = {(e) => handleCourseEnrollment(e)}>Enroll Now / Continue Learning</button>
+          {enrolled == false? 
+          <button onClick = {(e) => handleCourseEnrollment(e)}>Enroll Now / Continue Learning</button>:
+          null
+          }
         </div>
       </div>
     </div>

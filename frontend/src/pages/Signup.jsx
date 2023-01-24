@@ -29,6 +29,7 @@ const Signup = () => {
   const [email , setEmail] = useState(null);
   const [passwd , setPasswd] = useState(null);
   const [userType , setUserType] = useState(null);
+  const [errorState , setErrorState] = useState(false);
 const handleSignup = async(e) => {
   e.preventDefault();
   const userData = {
@@ -40,10 +41,15 @@ const handleSignup = async(e) => {
   console.log(userData);
   const response = await userSignupApi(userData);
   if (response.status == 200) {
+    setErrorState(false);
     console.log("Signed up successfully");
      localStorage.setItem("userId" , response.data.userId);
      localStorage.setItem("userType", response.data.userType);
      localStorage.setItem("userName" , response.data.userName);
+     window.location.href = "/";
+  }
+  else {
+    setErrorState(true);
   }
   console.log(response);
 };
@@ -90,13 +96,18 @@ const handleSignup = async(e) => {
     />
     </div>
     <div className={styles.inputField}>
-      <input type="radio" name="type" id="type" value="Student" onChange ={(e) => setUserType("Student")}/>
-      <label htmlFor="Student">Student</label>
-      <input type="radio" name="type" id="type" value="Instructor" onChange={(e) => setUserType("Instructor")}/>
-      <label htmlFor="Instructor">Instructor</label>
+      <div>
+        <input type="radio" name="type" id="type" value="Student" onChange ={(e) => setUserType("Student")}/>
+        <label htmlFor="Student">Student</label>
+      </div>
+      <div>
+        <input type="radio" name="type" id="type" value="Instructor" onChange={(e) => setUserType("Instructor")}/>
+        <label htmlFor="Instructor">Instructor</label>
+      </div>
     </div>
     <button className={styles.loginBtn} onClick = {e => handleSignup(e)}>Signup</button>
         <p className={styles.text}>Already have an account? Login here <Link to="/user/Login">Login</Link></p>
+        {errorState == true ? <p className={styles.error}>Account already exists</p>:null}
       </div>
       <Footer/>
       </>

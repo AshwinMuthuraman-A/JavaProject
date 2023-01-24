@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "../styles/LessonElement.module.css";
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import PendingIcon from '@mui/icons-material/Pending';
 const LessonsSidebar = (props) => {
   let { moduleList, umodulesCompleted } = props;
-  umodulesCompleted = umodulesCompleted[0];
+  umodulesCompleted = umodulesCompleted[0].modulesCompleted;
   console.log(umodulesCompleted);
   console.log(moduleList);
   const handleLessonChange = (e) => {
@@ -14,7 +16,7 @@ window.location.href=`/lesson/${e}`;
         const { moduleId, name } = ele;
         return (
             <div className={styles.lessonComponent}>
-              <div onClick={(e) => handleLessonChange(moduleId)} className={umodulesCompleted?umodulesCompleted.modulesCompleted[idx]?styles.completed:styles.pending:null}>{idx+1} .{name}</div>
+              <div onClick={(e) => handleLessonChange(moduleId)} >{idx+1} .{name}{umodulesCompleted?umodulesCompleted[idx] == true?<TaskAltIcon/>:<PendingIcon/>:null}</div>
             </div>
         );
       })}

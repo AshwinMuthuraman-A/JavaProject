@@ -24,7 +24,8 @@ const CompletedBtn = (props) => {
       .then((resolve) => {
         console.log(resolve);
         setCompleted(true);//only to force a reload ,failed
-        window.location.href=`http://localhost:3000/lesson/${findLessonId()}`
+        const temp = window.location.href;
+        window.location.href=temp;
       })
       .catch((err) => console.error(err));
   };

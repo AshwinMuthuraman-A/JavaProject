@@ -7,22 +7,21 @@
         align-items: flex-start;
         justify-content: center;
         flex-direction: column;
-        	background: rgba(225,225,225, 0.7);
         font-family: "PrimaryFont";
     }
     .lessonComponent {
         display: flex;
+        width: 90%;
         justify-content: space-between;
         align-items: center;
-        /* padding-inline: 1rem; */
-        border:1px solid black;
+        padding-inline: 1rem;
         font-size:1.3rem;
         margin-bottom: 10px;
-        background-color: rgb(245,245,245);
         transition: all 0.5s ease-in;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
     .lessonComponent * {
-
         text-decoration: none;
     }
     .lessonComponent:hover{

@@ -27,6 +27,7 @@ const CssTextField = styled(TextField)({
 const Login = () => {
   const [email , setEmail] = useState(null);
   const [passwd , setPasswd] = useState(null);
+  const [errorState , setErrorState] = useState(false);
 const handleLogin = async(e) => {
   e.preventDefault();
   const userData = {
@@ -35,12 +36,21 @@ const handleLogin = async(e) => {
   }
   console.log(userData);
   const response = await userLoginApi(userData);
+  if (response.status != 200) {
+    setErrorState(true);
+    return;
+  }
+  else {
+    setErrorState(false);
   localStorage.clear();
   localStorage.setItem("userId" , response.data.userId);
   localStorage.setItem("userType", response.data.userType);
   localStorage.setItem("userName" , response.data.userName);
   console.log(response);
-};
+  window.location.href = "http://localhost:3000/";
+}
+  }
+;
   return (
     <>
     <div className={styles.container}
@@ -73,6 +83,7 @@ const handleLogin = async(e) => {
     </div>
     <button className={styles.loginBtn} onClick = {e => handleLogin(e)}>Login</button>
         <p className={styles.text}>Don't have an account?Create one Here <Link to="/user/signup">SignUp</Link></p>
+    {errorState==false? null:<p className={styles.error}>Email or password details is wrong</p>}
       </div>
       <Footer/>
       </>

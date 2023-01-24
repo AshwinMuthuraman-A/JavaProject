@@ -1,6 +1,7 @@
 .flexContainer {
     display: flex;
     flex-direction: row;
+    background-color: rgb(240,240,240,0.7);
 }
 .header{
     background-color: var(--textPrimary);
@@ -20,11 +21,13 @@
     background-color: var(--textPrimary);
 }
  .courseCard{ 
-    border:2px solid var(--textSecondary);
     padding:10px;
     position: sticky;
     top:0;
     background-color: white;
+    margin-top:-1px;
+    font-family: "PrimaryFont";
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 } 
 .courseCard img {
     width: 100%;
@@ -33,9 +36,13 @@
     padding:2rem;
     font-family: "PrimaryFont";
     font-size:1.2rem;
-    border:1px solid black;
     margin-top:2rem;
-    margin-left:1rem;
+    margin-inline:1rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.listContainer h2 {
+    font-family: "SecondaryFont";
 }
 .leftCol{
     flex:1 1 60%;
@@ -57,4 +64,33 @@
     display: inline-block;
     margin-block:10px;
     margin-right: 10px;;
+}
+.courseContent{
+    margin-inline: 1rem;
+    margin-block:20px;
+    font-family: "PrimaryFont";
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.courseContent h2 {
+    font-weight:bold;
+    font-family: "SecondaryFont";
+    font-size:2rem;
+}
+@media(max-width:1024px) {
+    .listContainer ul {
+        max-height: none;
+    }
+    .flexContainer{
+        flex-direction: column;
+    }
+    .courseCard{
+        width: 50%;
+        margin-inline:auto;
+    }
+    .filler{
+        display: none;
+    }
 }
