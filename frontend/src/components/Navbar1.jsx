@@ -37,13 +37,14 @@ const SearchField = styled(TextField)({
   },
 });
 export default function PrimarySearchAppBar(props) {
-  const {navOptions} = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [mnavOptions , setNavOptions] = useState([]);
+  const [mnavOptions , setNavOptions] = useState(() => {
+ });
   useEffect(()=> {
+    console.log("useEffect called");
     const fetchFun = async() =>{
       return await allCoursesApi();
     }
@@ -55,10 +56,8 @@ export default function PrimarySearchAppBar(props) {
     }
     );
     setNavOptions(temp);
-    
     });
-   },[]);
- 
+  },[]);
   const handleSearch = (courseObj) => {
     const {courseId} = courseObj;
     window.location.href = `http://localhost:3000/course/${courseId}`
@@ -66,7 +65,6 @@ export default function PrimarySearchAppBar(props) {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };

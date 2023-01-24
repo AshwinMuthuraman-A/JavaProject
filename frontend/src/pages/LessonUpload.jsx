@@ -3,6 +3,7 @@ import { useState,useRef } from "react";
 import LessonUploadComponent from "../components/LessonUploadComponent";
 import { uploadModuleApi } from "../api/coursesApi";
 import Footer from "../components/Footer";
+import style from "../styles/LessonUpload.module.css";
 const LessonUpload = () => {
   const [Lessons, setLessons] = useState([]);
   const [fileRefs , setFileRefs] = useState([]);
@@ -37,6 +38,7 @@ const LessonUpload = () => {
   }
   return (
     <>
+    <div>
     <form onSubmit={ (e) => {handleUploadLessons(e)}}>
       {Lessons.map((Component, i) => {
         return Component;
@@ -45,6 +47,7 @@ const LessonUpload = () => {
       <input type="submit" value="Upload all" />
     </form>
       <Footer/>
+    </div>
     </>
   );
 };

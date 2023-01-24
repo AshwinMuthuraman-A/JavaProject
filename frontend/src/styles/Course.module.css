@@ -15,13 +15,6 @@
 .header p {
     margin-block:5px;
 }
-.details {
-    display: flex;
-    flex-direction: row;
-}
-.details > * {
-    margin-left:10px;
-}
 .filler{
     height:100px;
     background-color: var(--textPrimary);

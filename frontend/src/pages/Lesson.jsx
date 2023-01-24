@@ -7,6 +7,7 @@ import { getCourseDetailsApi, markCompletedApi } from "../api/userApi";
 import { Link } from "react-router-dom";
 import LessonsSidebar from "../components/LessonsSidebar";
 import CompletedBtn from "../components/CompletedBtn";
+import Footer from "../components/Footer";
 const Lesson = () => {
   const [videoState, setVideoState] = useState(true);
   const [course, setCourse] = useState({});
@@ -115,8 +116,8 @@ return (
           <p className={styles.description}>
             {lesson?lesson.desc:"Loading failed"}
           </p>
-          <button onClick={(e) => handleVideoClick(e)}>Video</button>
-          <button onClick={(e) => handlePdfClick(e)}> Pdf Materials</button>
+          <button className={styles.btn}onClick={(e) => handleVideoClick(e)}>Video</button>
+          <button className={styles.btn}onClick={(e) => handlePdfClick(e)}> Pdf Materials</button>
           <div className={styles.contentContainer}>
             {videoState ? (
               <LessonVideo
@@ -131,6 +132,7 @@ return (
           <CompletedBtn moduleList = {moduleList} course={course} findLessonId={findLessonId} setCompleted={setCompleted} userCompletion ={userCompletion.filter(ele => ele.courseId ==course.courseId)} currentId = {findLessonId()}/>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

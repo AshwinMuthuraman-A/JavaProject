@@ -29,7 +29,7 @@
     flex:1 1 70%;
     padding:1rem;
 }
-.mainContent button {
+.btn{
   align-items: center;
   background-clip: padding-box;
   background-color: var(--dark);
@@ -59,7 +59,7 @@
   width: auto;
 }
 
-.mainContent button:hover
+.btn:hover
 /* .mainContent button:focus */
  {
   /* background-color: var(--dark); */
@@ -67,10 +67,10 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 
-.mainContent button:hover{
+.btn:hover{
   transform: translateY(-1px);
 }
-.mainContent button:active {
+.btn:active {
   background-color: var(--dark);
   box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
   transform: translateY(0);

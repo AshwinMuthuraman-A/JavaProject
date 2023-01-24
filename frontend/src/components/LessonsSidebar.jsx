@@ -14,8 +14,7 @@ window.location.href=`/lesson/${e}`;
         const { moduleId, name } = ele;
         return (
             <div className={styles.lessonComponent}>
-              <div onClick={(e) => handleLessonChange(moduleId)}>{name}</div>
-              <div>{umodulesCompleted? umodulesCompleted.modulesCompleted[idx]?"true":"false":null}</div>
+              <div onClick={(e) => handleLessonChange(moduleId)} className={umodulesCompleted?umodulesCompleted.modulesCompleted[idx]?styles.completed:styles.pending:null}>{idx+1} .{name}</div>
             </div>
         );
       })}

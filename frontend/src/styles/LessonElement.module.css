@@ -2,9 +2,7 @@
     text-decoration: none;
   }
   .lessonContainer {
-        border:1px solid red;
         width: 100%;
-        padding:1rem;
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -13,10 +11,11 @@
         font-family: "PrimaryFont";
     }
     .lessonComponent {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* padding-inline: 1rem; */
         border:1px solid black;
-        width: 85%;
-        padding:1rem;
         font-size:1.3rem;
         margin-bottom: 10px;
         background-color: rgb(245,245,245);
@@ -29,4 +28,12 @@
     .lessonComponent:hover{
         cursor: pointer;
         font-size:1.35rem;
+    }
+    .completed{
+        background-color: rgba(0, 223, 0,0.3);
+        padding:1rem;
+    }
+    .pending{
+        background-color: rgba(0, 0, 255, 0.626);
+        padding:1rem;
     }

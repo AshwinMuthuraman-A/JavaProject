@@ -1,4 +1,7 @@
+import { style } from "@mui/system";
 import { markCompletedApi } from "../api/userApi";
+import styles from "../styles/Btn.module.css"
+import DoneIcon from "@mui/icons-material/Done";
 const CompletedBtn = (props) => {
   const { moduleList, userCompletion, currentId ,setCompleted , course , findLessonId} = props;
   let idx = 0;
@@ -18,18 +21,28 @@ const CompletedBtn = (props) => {
     markCompletedApi(bodyFormData)
       .then((resolve) => {
         console.log(resolve);
-        setCompleted(true);
+        setCompleted(true);//only to force a reload
       })
       .catch((err) => console.error(err));
   };
+  const mystyles = {
+    text:{
+      fontFamily:"PrimaryFont",
+      color:"#2beb09",
+      fontSize:"1.3rem",
+      display:"flex",
+      alignItems:"center"
+    }
+
+  }
 
   return (
     <>
       {status
         ? status == false
-          ?<button onClick={e => handleCompleted(e)}>Mark as completed</button> 
+          ?<button onClick={e => handleCompleted(e)} className={styles.mybtn}>Mark as completed</button> 
           : status == true
-          ? "Already completed"
+          ? <p style={mystyles.text}><DoneIcon/>Completed Lesson</p>
           : null
         : null}
     </>

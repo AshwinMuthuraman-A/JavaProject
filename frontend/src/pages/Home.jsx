@@ -22,7 +22,6 @@ const Home = (props) => {
     }
   }
   useEffect(()=> {
-
     const fetchFun = async() =>{
       return await allCoursesApi();
     }

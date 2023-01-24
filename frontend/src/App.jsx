@@ -18,7 +18,7 @@ function App() {
     <>
     <GlobalStyle/>
     <Router>
-      <PrimarySearchAppBar navOptions={navOptions}/>
+      <PrimarySearchAppBar/>
       <AllRoutes setNavOptions={setNavOptions}/>
     </Router>
     </>

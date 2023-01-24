@@ -66,11 +66,14 @@ const Course = () => {
      let course = window.location.href;
     course = course.split('/');
     course = course[course.length-1];
-    if(userId == null)
-      return;
-      let bodyFormData = new FormData();
-      bodyFormData.append('userId' , userId);
+    let bodyFormData = new FormData();
+    bodyFormData.append('userId' , userId);
     const response = await getCourseDetailsApi(bodyFormData);
+    if(response.status != 200) {
+      console.log("User is not logged in");
+      return;
+    }
+    else {
     console.log(response);
     response.data.forEach((courseDetails) => {
       const {courseId} = courseDetails;
@@ -83,7 +86,9 @@ const Course = () => {
         console.log(userCourseDetails);
       }
     })
-  }
+ 
+    }
+ }
   return (
     <>
     {alertState ? LoginAlert(setAlertState) : null}
@@ -96,9 +101,8 @@ const Course = () => {
             {userCourseDetails.courseCompletedPercentage}
           </p>
           <div className={styles.details}>
-            <p>{course.instructorName}</p>
-            <p>Last updated date</p>
-            <p>{course.courseLang}</p>
+            <p>Instructor:{course.instructorName}</p>
+            <p>Course Language:{course.courseLang}</p>
           </div>
         </div>
         <div className={styles.listContainer}>
@@ -133,16 +137,15 @@ const Course = () => {
         </div>
         <div className={styles.courseContent}>
           <h2>Course Content</h2>
-          <p>Lesson Names and links</p>
-        <LessonList moduleList={moduleList} moduleCompleted = {userCourseDetails ? userCourseDetails.modulesCompleted : null}/>
+        <LessonList setAlertState={setAlertState} moduleList={moduleList} moduleCompleted = {userCourseDetails ? userCourseDetails.modulesCompleted : null}/>
         </div>
      </div>
       <div className={styles.rightCol}>
         <div className={styles.filler}></div>
         <div className={styles.courseCard}>
-          <img src="/slide1.png"></img>
-          <h2>Course Title</h2>
-          <p>{course.numberOfStudentsRegistered} Students have enrolled</p>
+          <img src={`http://localhost:6039/file/download/${course.imageId}`}></img>
+          <h2>{course.courseTitle}</h2>
+          <p>Number of Enrollments:{course.numberOfStudentsRegistered}</p>
           <ul>
             <li>{highPointsList[0]}</li>
             <li>{highPointsList[1]}</li>
