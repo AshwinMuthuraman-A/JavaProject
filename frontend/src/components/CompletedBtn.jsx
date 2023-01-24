@@ -11,6 +11,8 @@ const CompletedBtn = (props) => {
     }
   });
   let status = userCompletion[0];
+  console.log(status);
+  console.log(idx);
   status = status ? status.modulesCompleted[idx] : null;
   const handleCompleted = (e) => {
     e.preventDefault();
@@ -21,7 +23,8 @@ const CompletedBtn = (props) => {
     markCompletedApi(bodyFormData)
       .then((resolve) => {
         console.log(resolve);
-        setCompleted(true);//only to force a reload
+        setCompleted(true);//only to force a reload ,failed
+        window.location.href=`http://localhost:3000/lesson/${findLessonId()}`
       })
       .catch((err) => console.error(err));
   };
@@ -38,7 +41,7 @@ const CompletedBtn = (props) => {
 
   return (
     <>
-      {status
+      {status != null
         ? status == false
           ?<button onClick={e => handleCompleted(e)} className={styles.mybtn}>Mark as completed</button> 
           : status == true

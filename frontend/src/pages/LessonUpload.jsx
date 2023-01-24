@@ -3,7 +3,7 @@ import { useState,useRef } from "react";
 import LessonUploadComponent from "../components/LessonUploadComponent";
 import { uploadModuleApi } from "../api/coursesApi";
 import Footer from "../components/Footer";
-import style from "../styles/LessonUpload.module.css";
+import styles from "../styles/LessonUpload.module.css";
 const LessonUpload = () => {
   const [Lessons, setLessons] = useState([]);
   const [fileRefs , setFileRefs] = useState([]);
@@ -38,13 +38,31 @@ const LessonUpload = () => {
   }
   return (
     <>
-    <div>
-    <form onSubmit={ (e) => {handleUploadLessons(e)}}>
-      {Lessons.map((Component, i) => {
-        return Component;
-      })}
-      <button onClick={(e) => handleAddLesson(e)}>Add Lessons</button>
-      <input type="submit" value="Upload all" />
+    <div style={{background:"rgb(240,240,240,0.7)"}}>
+    <form>
+      <div className={styles.componentContainer}>
+        {Lessons.map((Component, i) => {
+          return Component;
+        })}
+      </div>
+<div className={styles.btnContainer}>
+  <button  className = {styles.btnPushable}role="button" onClick={(e) => handleAddLesson(e)}>
+    <span className={styles.btnShadow}></span>
+    <span className={styles.btnEdge}></span>
+    <span className={styles.btnFront}>
+     1. Add Lessons
+    </span>
+  </button>
+  <button  className = {styles.btnPushable}role="button" onClick={(e) => handleUploadLessons(e)}>
+    <span className={styles.btnShadow}></span>
+    <span className={styles.btnEdge}></span>
+    <span className={styles.btnFront}>
+     2. Upload All
+    </span>
+  </button>
+</div>
+      {/* <button onClick={(e) => handleAddLesson(e)}>Add Lessons</button> */}
+      {/* <input type="submit" value="Upload all" /> */}
     </form>
       <Footer/>
     </div>

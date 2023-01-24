@@ -1,0 +1,31 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    width: 70%;
+    padding:1rem;
+    margin-inline: auto;
+    margin-block:1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-family: "PrimaryFont";
+    font-size:1.3rem;
+    color:var(--textPrimary);
+}
+.row{
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+align-items: center;
+    margin-block:5px;
+    padding:10px 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.row label{
+    flex: 1 1 60%;
+}
+input {
+    flex: 1 1 40%;
+    display: inline-block;
+    font-size: 1rem;
+}
