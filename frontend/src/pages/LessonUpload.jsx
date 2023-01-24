@@ -2,6 +2,7 @@ import { ContactSupportOutlined } from "@mui/icons-material";
 import { useState,useRef } from "react";
 import LessonUploadComponent from "../components/LessonUploadComponent";
 import { uploadModuleApi } from "../api/coursesApi";
+import Footer from "../components/Footer";
 const LessonUpload = () => {
   const [Lessons, setLessons] = useState([]);
   const [fileRefs , setFileRefs] = useState([]);
@@ -43,6 +44,7 @@ const LessonUpload = () => {
       <button onClick={(e) => handleAddLesson(e)}>Add Lessons</button>
       <input type="submit" value="Upload all" />
     </form>
+      <Footer/>
     </>
   );
 };

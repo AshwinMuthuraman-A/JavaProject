@@ -7,6 +7,7 @@ import { getCourseApi, getModuleApi } from "../api/coursesApi";
 import { courseEnrollApi, getCourseDetailsApi } from "../api/userApi";
 import LessonList from "../components/LessonsList";
 import { LoginAlert } from "../components/Alerts";
+import Footer from "../components/Footer";
 const Course = () => {
   const [course , setCourse] = useState({});
   const [pointsList , setPointsList] = useState([]);
@@ -151,6 +152,7 @@ const Course = () => {
         </div>
       </div>
     </div>
+      <Footer/>
     </>
   );
 };

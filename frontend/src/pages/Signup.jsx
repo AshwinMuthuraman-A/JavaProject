@@ -4,6 +4,7 @@ import styles from "../styles/Login.module.css";
 import { styled } from "@mui/material";
 import { userSignupApi } from "../api/userApi";
 import {Link} from "react-router-dom";
+import Footer from "../components/Footer";
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
     color: 'var(--textSecondary)',
@@ -47,6 +48,7 @@ const handleSignup = async(e) => {
   console.log(response);
 };
   return (
+    <>
     <div className={styles.container}
     >
       <div className={styles.heading}>Signup</div>
@@ -96,6 +98,8 @@ const handleSignup = async(e) => {
     <button className={styles.loginBtn} onClick = {e => handleSignup(e)}>Signup</button>
         <p className={styles.text}>Already have an account? Login here <Link to="/user/Login">Login</Link></p>
       </div>
+      <Footer/>
+      </>
   );
 };
 export default Signup;

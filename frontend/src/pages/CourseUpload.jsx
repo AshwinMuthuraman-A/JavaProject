@@ -1,9 +1,11 @@
 import { useState, useRef } from "react";
 import DoneIcon from "@mui/icons-material/Done";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import StarIcon from '@mui/icons-material/Star';
 import styles from "../styles/CourseUpload.module.css";
 import { uploadCourseApi } from "../api/coursesApi";
 import {Link} from "react-router-dom";
+import Footer from "../components/Footer";
 const CourseUpload = () => {
  const courseTitleRef = useRef(null);
   const courseDescRef = useRef(null);
@@ -76,7 +78,6 @@ const CourseUpload = () => {
               />
             </p>
             <div className={styles.details}>
-              {/* <input type="text" name="instructorName" id="instructorName" placeholder="Instructors name"/> */}
               <input type="text" 
               name="courseLanguage"
               id="courseLanguage"
@@ -114,10 +115,10 @@ const CourseUpload = () => {
               </li>
             </ul>
           </div>
-        <div className="btnContainer">
-            <input type="submit" value="Register the course" />
+        <div className={styles.btnContainer}>
+            <input type="submit" value="Register the course" className={styles.registerBtn}/>
+        <Link to ="/lessonAdd" className={styles.uploadBtn}>Proceed to upload Lessons</Link>
         </div>
-        <Link to ="/lessonAdd">Proceed to upload Lessons</Link>
         </div>
        <div className={styles.rightCol}>
           <div className={styles.filler}></div>
@@ -136,7 +137,8 @@ const CourseUpload = () => {
                 style={{
                   height: "200px",
                   width: "200px",
-                  border: "1px solid var(--textSecondary)",
+                  border: "1px solid var(--textPrimary)",
+                  borderRadius:"10px",
                   margin: "0px",
                   display:"flex",
                   flexDirection:"column",
@@ -152,8 +154,8 @@ const CourseUpload = () => {
                   style={{
                     width: "100%",
                     height: "100%",
-                    border:"2px solid red",
                      position: "absolute",
+                  borderRadius:"10px",
                   }}
                 />
               <AddAPhotoIcon 
@@ -165,13 +167,14 @@ const CourseUpload = () => {
             <p>Give us the highlighting key points of your course.These will be displayed in the cards of the homepage</p>
 
             <ul>
-              <li><input type="text" name="impPoint1" id="impPoint1" ref={high1Ref}/></li>
-              <li><input type="text" name="impPoint2" id="impPoint2" ref={high2Ref}/></li>
-              <li><input type="text" name="impPoint3" id="impPoint3" ref={high3Ref}/></li>
+              <li><StarIcon sx={{fontSize:"1.5rem",color:"var(--dark)"}}/><input type="text" name="impPoint1" id="impPoint1" ref={high1Ref}/></li>
+              <li><StarIcon sx={{fontSize:"1.5rem",color:"var(--dark)"}}/><input type="text" name="impPoint2" id="impPoint2" ref={high2Ref}/></li>
+              <li><StarIcon sx={{fontSize:"1.5rem",color:"var(--dark)"}}/><input type="text" name="impPoint3" id="impPoint3" ref={high3Ref}/></li>
             </ul>
           </div>
         </div>
       </div>
+      <Footer/>
     </form>
   );
 };

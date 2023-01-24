@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,6 +16,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { TextField, Autocomplete, Button } from "@mui/material";
 import {Link} from "react-router-dom"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { allCoursesApi } from "../api/coursesApi";
 const SearchField = styled(TextField)({
   "& label.Mui-focused": {
   },
@@ -35,35 +36,33 @@ const SearchField = styled(TextField)({
     },
   },
 });
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
-
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
+  const {navOptions} = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [searchValue , setSearchValue] = useState(null);
+  const [mnavOptions , setNavOptions] = useState([]);
+  useEffect(()=> {
+    const fetchFun = async() =>{
+      return await allCoursesApi();
+    }
+   fetchFun().then((response) => {
+ let temp = response.data.map((ele) =>  
+    {
+      const {courseId , courseTitle} = ele;
+      return {courseId , courseTitle};
+    }
+    );
+    setNavOptions(temp);
+    
+    });
+   },[]);
+ 
+  const handleSearch = (courseObj) => {
+    const {courseId} = courseObj;
+    window.location.href = `http://localhost:3000/course/${courseId}`
+  }
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -161,69 +160,11 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
   //must get these values from the db
-  const top100Films = [
-    { title: "The Shawshank Redemption", year: 1994 },
-    { title: "The Godfather", year: 1972 },
-    { title: "The Godfather: Part II", year: 1974 },
-    { title: "The Dark Knight", year: 2008 },
-    { title: "12 Angry Men", year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: "Pulp Fiction", year: 1994 },
-    {
-      title: "The Lord of the Rings: The Return of the King",
-      year: 2003,
-    },
-    { title: "The Good, the Bad and the Ugly", year: 1966 },
-    { title: "Fight Club", year: 1999 },
-    {
-      title: "The Lord of the Rings: The Fellowship of the Ring",
-      year: 2001,
-    },
-    {
-      title: "Star Wars: Episode V - The Empire Strikes Back",
-      year: 1980,
-    },
-    { title: "Forrest Gump", year: 1994 },
-    { title: "Inception", year: 2010 },
-    {
-      title: "The Lord of the Rings: The Two Towers",
-      year: 2002,
-    },
-    { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-    { title: "Goodfellas", year: 1990 },
-    { title: "The Matrix", year: 1999 },
-    { title: "Seven Samurai", year: 1954 },
-    {
-      title: "Star Wars: Episode IV - A New Hope",
-      year: 1977,
-    },
-    { title: "City of God", year: 2002 },
-    { title: "Se7en", year: 1995 },
-    { title: "The Silence of the Lambs", year: 1991 },
-    { title: "It's a Wonderful Life", year: 1946 },
-    { title: "Life Is Beautiful", year: 1997 },
-    { title: "The Usual Suspects", year: 1995 },
-    { title: "Léon: The Professional", year: 1994 },
-    { title: "Spirited Away", year: 2001 },
-    { title: "Saving Private Ryan", year: 1998 },
-    { title: "Once Upon a Time in the West", year: 1968 },
-    { title: "American History X", year: 1998 },
-    { title: "Interstellar", year: 2014 },
-    { title: "Casablanca", year: 1942 },
-    { title: "City Lights", year: 1931 },
-    { title: "Psycho", year: 1960 },
-    { title: "The Green Mile", year: 1999 },
-    { title: "The Intouchables", year: 2011 },
-    { title: "Modern Times", year: 1936 },
-    { title: "Raiders of the Lost Ark", year: 1981 },
-    { title: "Rear Window", year: 1954 },
-    { title: "The Pianist", year: 2002 },
-  ];
-  const defaultProps = {
-    options: top100Films,
-    getOptionLabel: (option) => option.title,
-  };
-  console.log(`The search value is ${searchValue}`);
+//  const defaultProps = {
+//     options: mnavOptions,
+//     getOptionLabel: (option) => option.courseTitle,
+//   };
+const defaultProps = mnavOptions;
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
@@ -241,7 +182,8 @@ export default function PrimarySearchAppBar() {
           </Link>
           <Autocomplete
             sx={{ width: "350px", marginLeft: "100px" }}
-            {...defaultProps}
+            options={mnavOptions}
+            getOptionLabel={(options) => options.courseTitle}
             renderInput={(params) => (
               <>
                 <SearchField 
@@ -249,7 +191,7 @@ export default function PrimarySearchAppBar() {
                 />
               </>
             )}
-            onChange = { (event,newValue) =>{console.log(newValue.title);setSearchValue(newValue.title);}}
+            onChange = { (event,newValue) =>{console.log(newValue.title);handleSearch(newValue);}}
           >
           </Autocomplete>
           <Box sx={{ flexGrow: 1 }} />

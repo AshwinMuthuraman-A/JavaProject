@@ -11,24 +11,25 @@ import './App.css'
 import PrimarySearchAppBar from './components/Navbar1';
 import Footer from './components/Footer';
 import LessonUpload from './pages/LessonUpload';
+import { useState } from 'react';
 function App() {
+  const [navOptions , setNavOptions] = useState([]);
   return (
     <>
     <GlobalStyle/>
     <Router>
-      <PrimarySearchAppBar/>
-      <AllRoutes/>
-      <Footer/>
+      <PrimarySearchAppBar navOptions={navOptions}/>
+      <AllRoutes setNavOptions={setNavOptions}/>
     </Router>
     </>
   );
 }
-const AllRoutes = () => {
+const AllRoutes = (props) => {
   return (
     <Routes>
       <Route path="/user/login" element={<Login/>}/>
       <Route path="/user/signup" element={<Signup/>}/>
-      <Route path="/" element={<Home/>}/>
+      <Route path="/" element={<Home setNavOptions={props}/>} />
       <Route path="/course/:id/" element={<Course/>}/>
       <Route path="/lesson/:id/" element={<Lesson/>}/>
       <Route path="/courseRegister/" element={<CourseUpload/>}/>

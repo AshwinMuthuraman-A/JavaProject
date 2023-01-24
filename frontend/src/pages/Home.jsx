@@ -5,9 +5,12 @@ import {Link} from "react-router-dom"
 import { useEffect ,useState} from "react";
 import { allCoursesApi } from "../api/coursesApi";
 import { InstructorAlert, LoginAlert } from "../components/Alerts";
-const Home = () => {
+import Footer from "../components/Footer";
+const Home = (props) => {
   const [allCourses , setCourses] = useState([]);
   const [alertState , setAlertState] = useState(false);
+  const {setNavOptions} = props;
+  console.log(setNavOptions);
   const userType = localStorage.getItem("userType");
   const checkInstructor = (e) => {
     //const userType = localStorage.getItem("userType");
@@ -19,15 +22,27 @@ const Home = () => {
     }
   }
   useEffect(()=> {
+
     const fetchFun = async() =>{
       return await allCoursesApi();
     }
     const allCourses = fetchFun();
+    const {setNavOptions} = props;
+    console.log(setNavOptions);
     console.log("Hell");
-    console.log(allCourses.then((resp) => {
+    allCourses.then((resp) => {
       console.log(resp);
+    let temp = resp.data.map((ele) =>  
+    {
+      console.log("ele");
+      console.log(ele);
+      const {courseId , courseTitle} = ele;
+      return {courseId , courseTitle};
+    }
+    );
+    setNavOptions.setNavOptions(temp);
     setCourses(resp.data);
-    }));
+    });
   },[])
   console.log(allCourses);
   return (
@@ -58,6 +73,7 @@ const Home = () => {
       </div>
       {/* <Fileupload/> */}
       {/* <LessonUpload/> */}
+      <Footer/>
     </>
   );
 };
