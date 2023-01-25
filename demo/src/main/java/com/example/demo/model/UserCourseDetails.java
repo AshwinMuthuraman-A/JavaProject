@@ -60,7 +60,7 @@ public class UserCourseDetails {
 		double size = this.modulesCompleted.size();
 		double newPercentage;
 		if(size!=0)
-			newPercentage = trueCount/size;
+			newPercentage = trueCount/size * 100;
 		else
 			newPercentage = 0.0;
 		this.setCourseCompletedPercentage(newPercentage);
