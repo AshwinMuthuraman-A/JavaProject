@@ -107,7 +107,6 @@ const Course = () => {
           <h2>{course.courseTitle}</h2>
           <p>
             {course.courseDesc}
-            {userCourseDetails.courseCompletedPercentage}
           </p>
           <div className={styles.details}>
             <p>Instructor:{course.instructorName}</p>
@@ -163,8 +162,8 @@ const Course = () => {
             <li>{highPointsList[2]}</li>
           </ul>
           {enrolled == false? 
-          <button onClick = {(e) => handleCourseEnrollment(e)}>Enroll Now / Continue Learning</button>:
-          null
+          <button onClick = {(e) => handleCourseEnrollment(e)} className={styles.enrollBtn}> Enroll Now</button>:
+            <p>Course completed percentage:{userCourseDetails.courseCompletedPercentage}</p>
           }
         </div>
       </div>

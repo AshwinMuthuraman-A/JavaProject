@@ -85,13 +85,13 @@ const LessonUpload = () => {
      1. Add Lessons
     </span>
   </button>
-  <button  className = {styles.btnPushable}role="button" onClick={(e) => handleUploadLessons(e)}>
+  {/* <button  className = {styles.btnPushable}role="button" onClick={(e) => handleUploadLessons(e)}>
     <span className={styles.btnShadow}></span>
     <span className={styles.btnEdge}></span>
     <span className={styles.btnFront}>
      2. Upload All
     </span>
-  </button>
+  </button> */}
 </div>
       {/* <button onClick={(e) => handleAddLesson(e)}>Add Lessons</button> */}
       {/* <input type="submit" value="Upload all" /> */}

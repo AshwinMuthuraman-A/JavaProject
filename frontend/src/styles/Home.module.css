@@ -1,6 +1,7 @@
-content{
+.content{
     background-color: #F7F9FA;
     padding:20px;
+    padding:2rem;
 }
 .heading{
     font-size:3rem;

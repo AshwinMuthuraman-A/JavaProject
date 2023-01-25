@@ -94,9 +94,7 @@ const LessonUploadComponent = (props) => {
                 <label htmlFor="Pdf">Lesson's Pdf</label>
                 <input type="file" ref={pdfRef }name={`pdf${id}`} id={`pdf${id}`} placeholder="Upload the lesson pdf"/>
             </div>
-            <div className={styles.row}>
-                <button onClick={ e => UploadLesson(e)}> Upload</button>
-            </div>
+                <button className = {styles.uploadBtn} onClick={ e => UploadLesson(e)}> Upload</button>
         </div>
     )
 }

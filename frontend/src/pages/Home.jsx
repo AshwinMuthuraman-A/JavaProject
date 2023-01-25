@@ -49,8 +49,12 @@ const Home = (props) => {
     {alertState?InstructorAlert(setAlertState):null}
       <MainCarousel/>
       <div className={styles.content}>
+        {localStorage.getItem("userType") === "Student" ? <h2 style={{fontFamily:"SecondaryFont"}} >Continue Learning {localStorage.getItem("userName")}...</h2> :
+        localStorage.getItem("userType") === "Instructor"?<h2 style={{fontFamily:"SecondaryFont"}}>Hello Instructor {localStorage.getItem("userName")}</h2>:
+        null
+        }
         <h2 className={styles.heading}>A broad selection of courses</h2>
-        <p className={styles.text}>Get job ready for an in-demand career</p>
+       <p className={styles.text}>Get job ready for an in-demand career</p>
       </div>
       <div style={{ paddingLeft: "1.5rem" }}>
         <MultiCarousel allCourses = {allCourses} />
@@ -66,12 +70,8 @@ const Home = (props) => {
           {userType ==="Instructor" ? <Link to = "/courseRegister"><button >Upload the course</button></Link> : 
           <button onClick = {e => checkInstructor(e)}>Upload a course</button>
           }
-          {/* <Link to="/courseRegister"> */}
-          {/* </Link> */}
         </div>
       </div>
-      {/* <Fileupload/> */}
-      {/* <LessonUpload/> */}
       <Footer/>
     </>
   );

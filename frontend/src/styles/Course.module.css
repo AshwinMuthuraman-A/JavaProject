@@ -79,6 +79,45 @@
     font-family: "SecondaryFont";
     font-size:2rem;
 }
+.enrollBtn{
+    font-family: "PrimaryFont";
+  font-size:1.2rem;
+   display: block;
+   width: 70%;
+  border:1px solid var(--textSecondary);
+  border-radius: 0;
+  color: var(--textSecondary);
+  overflow: hidden;
+  z-index: 1;
+  padding-inline:1rem;
+  padding-block:0.6rem;
+  background: transparent;
+  transition: color 150ms ease-in-out;
+  position: relative;
+}
+  
+  .enrollBtn:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 100%;
+    background: var(--textSecondary);
+    z-index: -1;
+    transition: width 150ms ease-in-out;
+  }
+  
+  .enrollBtn:hover{
+    color:white;
+    cursor: pointer;
+  }
+  .enrollBtn:hover::after{
+    width: 100%;;
+  }
+ 
 @media(max-width:1024px) {
     .listContainer ul {
         max-height: none;
