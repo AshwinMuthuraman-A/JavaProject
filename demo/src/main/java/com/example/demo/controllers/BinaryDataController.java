@@ -35,9 +35,13 @@ public class BinaryDataController {
 	
 	@GetMapping(value="/download/{id}")
 	public ResponseEntity<ByteArrayResource> download(@PathVariable String id) throws IOException {
+		System.out.println("Download file id: " + id);
 		BinaryData bd = bds.downloadFile(id);
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(bd.getType())).
+		System.out.println("Hello"+ bd.getType());
+		if(bd.getType()!=null)
+			return ResponseEntity.ok().contentType(MediaType.parseMediaType(bd.getType())).
 				header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + bd.getName() +"\"").
 				body(new ByteArrayResource(bd.getFile()));
+		return null;
 	}
 }

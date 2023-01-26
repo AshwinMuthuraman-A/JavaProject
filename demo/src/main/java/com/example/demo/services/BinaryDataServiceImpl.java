@@ -32,7 +32,9 @@ public class BinaryDataServiceImpl implements BinaryDataService{
 	}
 	
 	public BinaryData downloadFile(String id) throws IOException {
+		System.out.println("File id"+ id);
 		GridFSFile gfsFile = gfsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
+		//System.out.println("MetaData"+ gfsFile.getMetadata().toString());
 		BinaryData bd = new BinaryData();
 		if(gfsFile!=null && gfsFile.getMetadata()!=null) {
 			bd.setName(gfsFile.getFilename());
