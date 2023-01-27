@@ -17,6 +17,19 @@ const Course = () => {
   const [invalidType , setInvalidType] = useState(false);
   const [userCourseDetails , setUserCourseDetails] = useState({});
   const [enrolled , setEnrolled] = useState(false);
+  const getSingleModule = (course , idx) => {
+    console.log(course);
+    const {modulesList} = course;
+    const ele = modulesList[idx];
+    getModuleApi(ele).then((resolve) => {
+      console.log("hi");
+      const{moduleId , name} = resolve.data;
+      console.log(resolve.data);
+      setModuleList((oldVal) => oldVal?[...oldVal , resolve.data] : [resolve.data]);
+      getSingleModule(course,idx+1);
+    }).catch(err => console.log(err));
+  }
+ 
   useEffect (() => {
     let url = window.location.href;
     url = url.split('/');
@@ -28,16 +41,17 @@ const Course = () => {
       setPointsList(resolve.data.importantKeyPoints);
       setHightPointsList(resolve.data.highlightKeyPoints);
       const modulesList = resolve.data.modulesList;
-      modulesList.forEach((ele) => {
-        getModuleApi(ele).then((response) => {
-          console.log(response);
-          setModuleList((oldVal) => [...oldVal , response.data])
-        }).catch((err) => {
-          console.log(err); 
-          console.log("Fetch module failed")
-        });
-        console.log(ele);
-      })
+      // modulesList.forEach((ele) => {
+      //   getModuleApi(ele).then((response) => {
+      //     console.log(response);
+      //     setModuleList((oldVal) => [...oldVal , response.data])
+      //   }).catch((err) => {
+      //     console.log(err); 
+      //     console.log("Fetch module failed")
+      //   });
+      //   console.log(ele);
+      // })
+      getSingleModule(resolve.data , 0);
     });
     checkEnrollment();
   }
@@ -101,7 +115,7 @@ const Course = () => {
     <>
     {alertState ? LoginAlert(setAlertState) : null}
     {invalidType? InvalidUserTypeAlert(setInvalidType):null}
-    <div className={styles.flexContainer}>
+    <div className={styles.bodyContainer}>
       <div className={styles.leftCol}>
         <div className={styles.header}>
           <h2>{course.courseTitle}</h2>
@@ -115,32 +129,36 @@ const Course = () => {
         </div>
         <div className={styles.listContainer}>
           <h2 style={{ fontWeight: "bold" }}>What you'll learn</h2>
-          <ul>
-            <li>
-              <DoneIcon sx={{ marginRight: "10px" }} />
-              {pointsList[0]}
-            </li>
-            <li>
-              <DoneIcon sx={{ marginRight: "10px" }} />
-              {pointsList[1]}
-            </li>
-            <li>
-              <DoneIcon sx={{ marginRight: "10px" }} />
-              {pointsList[2]}
-            </li>
-            <li>
-              <DoneIcon sx={{ marginRight: "10px" }} />
-              {pointsList[3]}
-            </li>
-            <li>
-              <DoneIcon sx={{ marginRight: "10px" }} />
-              {pointsList[4]}
-            </li>
-            <li>
-              <DoneIcon sx={{ marginRight: "10px" }} />
-              {pointsList[5]}
-            </li>
-          </ul>
+            <div className={styles.flexContainer}>
+              <div>
+                <li>
+                  <DoneIcon sx={{ marginRight: "10px" }} />
+                  {pointsList[0]}
+                </li>
+                <li>
+                  <DoneIcon sx={{ marginRight: "10px" }} />
+                  {pointsList[1]}
+                </li>
+                <li>
+                  <DoneIcon sx={{ marginRight: "10px" }} />
+                  {pointsList[2]}
+                </li>
+              </div>
+              <div>
+                <li>
+                  <DoneIcon sx={{ marginRight: "10px" }} />
+                  {pointsList[3]}
+                </li>
+                <li>
+                  <DoneIcon sx={{ marginRight: "10px" }} />
+                  {pointsList[4]}
+                </li>
+                <li>
+                  <DoneIcon sx={{ marginRight: "10px" }} />
+                  {pointsList[5]}
+                </li>
+              </div>
+            </div>
         </div>
         <div className={styles.courseContent}>
           <h2>Course Content</h2>

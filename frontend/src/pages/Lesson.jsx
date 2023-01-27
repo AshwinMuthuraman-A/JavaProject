@@ -27,17 +27,32 @@ const Lesson = () => {
     const currentId = findLessonId();
     //need the course id now shite
   };
-  const getModulesList = async (course) => {
-    const { modulesList } = course;
-    let moduleArr = [];
-    modulesList.forEach(async (ele) => {
-      const response = await getModuleApi(ele);
-      const { moduleId, name } = response.data;
+  const getSingleModule = (course , idx) => {
+    // if(idx > course.modulesList.length){
+    //   return;
+    // }
+    console.log(course);
+    const {modulesList} = course;
+    const ele = modulesList[idx];
+    getModuleApi(ele).then((resolve) => {
+      console.log("hi");
+      const{moduleId , name} = resolve.data;
+      console.log(resolve.data);
       setModuleList((oldVal) => oldVal?[...oldVal , {moduleId , name}] : [{moduleId,name}]);
-      moduleArr.push({ moduleId, name });
-    });
-    return moduleArr;
-  };
+      getSingleModule(course,idx+1);
+    }).catch(err => console.log(err));
+  }
+  // const getModulesList = async (course) => {
+  //   const { modulesList } = course;
+  //   let moduleArr = [];
+  //   modulesList.forEach(async (ele) => {
+  //     const response = await getModuleApi(ele);
+  //     const { moduleId, name } = response.data;
+  //     setModuleList((oldVal) => oldVal?[...oldVal , {moduleId , name}] : [{moduleId,name}]);
+  //     moduleArr.push({ moduleId, name });
+  //   });
+  //   return moduleArr;
+  // };
   const fetchAll = async () => {
   let lessonId = window.location.href;
     lessonId = lessonId.split("/");
@@ -65,9 +80,9 @@ const Lesson = () => {
         console.log(userCompletion);
       })
         // setCourse(resolve.data);
-        const response = getModulesList(resolve.data);
+        getSingleModule(resolve.data , 0);
         console.log("2");
-        console.log(response);
+        // console.log(response);
       });
    });
   };

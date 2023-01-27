@@ -95,7 +95,7 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>{localStorage.getItem("userName") ? localStorage.getItem("userName"):"Your account"}</MenuItem>
     </Menu>
   );
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -196,13 +196,13 @@ const defaultProps = mnavOptions;
           <Box
             sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}
           >
-            <ShoppingCartIcon
+            {/* <ShoppingCartIcon
               sx={{
                 color: "var(--textSecondary)",
                 "&:hover": { cursor: "pointer" },
               }}
               titleAccess="Your purchases"
-            />
+            /> */}
             <Link to="user/login">
             <Button
               variant="outlined"
